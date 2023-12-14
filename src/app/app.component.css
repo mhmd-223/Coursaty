@@ -1,0 +1,9 @@
+.menu {
+    min-width: 250px;
+    padding-top: 4rem;
+}
+
+#logo {
+    font-size: 30px;
+    font-weight: 800;
+}

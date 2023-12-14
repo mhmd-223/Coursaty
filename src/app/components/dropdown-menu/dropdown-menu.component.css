@@ -1,0 +1,10 @@
+.dropdown {
+  border-style: none;
+  min-width: 250px;
+
+}
+
+.dropdown li,
+p {
+  margin: .25rem 0 .25rem .25rem;
+}
