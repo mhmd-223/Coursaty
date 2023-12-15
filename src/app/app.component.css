@@ -7,3 +7,11 @@
     font-size: 30px;
     font-weight: 800;
 }
+
+.btn-sign {
+    @apply btn-primary border-solid border-2 border-darkSlateBlue dark:border-cpd-1 dark:hover:bg-cpd-1 hover:bg-darkSlateBlue hover:text-cp-3 transition duration-500 self-stretch mt-5
+}
+
+.navbar-item {
+    @apply flex items-center mt-5 sm:m-2 sm:my-12 text-lg duration-300 hover:text-cpd-1 dark:hover:text-cp-1
+}

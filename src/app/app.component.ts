@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   hidden: boolean = false;
   enablDarkMode: boolean = false;
-
+  loggedIn: boolean = false;
   title = 'Coursaty';
 }

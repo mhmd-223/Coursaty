@@ -23,6 +23,9 @@ module.exports = {
         'cpd-2': '#393E46',
         'cpd-3': '#00ADB5',
         'cpd-4': '#EEEEEE'
+      },
+      fontFamily: {
+        nunito: ['Nunito'],
       }
     },
   },

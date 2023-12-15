@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
 })
 
 export class DropdownMenuComponent {
+
+  @Input('logged')
+  isLoggedIn: boolean = false; 
+
   isDropdownOpen: boolean = false;
 }
