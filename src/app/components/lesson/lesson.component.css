@@ -1,0 +1,3 @@
+.quiz-btn {
+    @apply hover:text-gray-600 duration-300 flex justify-start self-end items-center p-2 mt-5 rounded-full
+}

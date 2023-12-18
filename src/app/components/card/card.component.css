@@ -1,7 +1,7 @@
 .card-btn {
-    @apply inline-flex items-center mx-0 text-sm text-center text-darkSlateBlue dark:text-cpd-3 bg-cp-4 btn-primary rounded-md transition duration-500 hover:bg-darkSlateBlue hover:text-cp-1 focus:ring-2 focus:outline-none focus:ring-darkSlateBlue dark:bg-cpd-2 dark:hover:bg-cpd-1 dark:hover:text-cpd-4 dark:focus:ring-cpd-1
+    @apply inline-flex items-center mx-0 text-sm text-center text-darkSlateBlue dark:text-cpd-3 bg-gray-200 btn-primary rounded-md transition duration-500 hover:border-gray-400 hover:text-black focus:ring-2 focus:outline-none focus:ring-darkSlateBlue dark:bg-cpd-2 dark:hover:bg-cpd-1 dark:hover:text-cpd-4 dark:focus:ring-cpd-1
 }
 
 .card-container {
-    @apply relative max-w-sm bg-cp-3 text-darkSlateBlue border-2 border-darkSlateBlue rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 m-2
+    @apply relative max-w-sm bg-darkSlateBlue text-gray-200 border-2 border-gray-700 rounded-lg shadow-lg dark:bg-gray-800 m-2
 }

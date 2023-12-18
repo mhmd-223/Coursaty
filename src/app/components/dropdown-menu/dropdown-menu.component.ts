@@ -8,8 +8,5 @@ import { Component, Input } from '@angular/core';
 
 export class DropdownMenuComponent {
 
-  @Input('logged')
-  isLoggedIn: boolean = false; 
-
   isDropdownOpen: boolean = false;
 }

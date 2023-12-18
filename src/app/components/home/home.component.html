@@ -1,0 +1,71 @@
+<div *ngIf="!isloggedIn">
+    <!-- Hero Section -->
+    <section class="bg-darkSlateBlue dark:bg-cpd-2 py-20 text-gray-200">
+        <div class="container mx-auto text-center">
+            <h1 class="text-5xl font-extrabold mb-4">Explore the World of Knowledge</h1>
+            <p class="text-lg p-5">Unleash your potential with our diverse range of high-quality courses.</p>
+            <a href="#"
+                class="mt-8 bg-white text-darkSlateBlue py-3 px-8 rounded-full inline-block font-semibold">Discover
+                Courses</a>
+        </div>
+    </section>
+
+    <!-- Featured Courses Section -->
+    <section class="container mx-auto mt-12">
+        <h2 class="text-3xl font-bold m-6">Featured Courses</h2>
+        <!-- Add a grid or carousel showcasing featured courses -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <app-card *ngFor="let course of topCourses" [brief]="course.brief" [cover]="course.cover"
+                [title]="course.title"></app-card>
+        </div>
+    </section>
+
+
+    <!-- Ready to Explore Call to Action -->
+    <section class="bg-darkSlateBlue dark:bg-cpd-2 py-16 text-gray-200">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-extrabold mb-4">Ready to Explore More?</h2>
+            <p class="text-lg">Sign up now and embark on a journey of continuous learning.</p>
+        </div>
+    </section>
+</div>
+
+<div *ngIf="isloggedIn">
+    <!-- Welcome Section -->
+    <section class="bg-darkSlateBlue dark:bg-cpd-2 py-20 text-gray-200">
+        <div class="container mx-auto text-center">
+            <h1 class="text-5xl font-extrabold mb-4">Welcome back, {{user.name}}!</h1>
+            <p class="text-lg p-5"> Continue your learning journey and explore the latest courses.</p>
+        </div>
+    </section>
+
+    <!-- Enrolled Courses Section -->
+    <section class="container mx-auto mt-12">
+        <h2 class="text-3xl font-bold m-6">Your enrolled Courses</h2>
+        <!-- Add a grid or carousel showcasing featured courses -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <app-enrolled-course *ngFor="let course of user.enrolledCourses" [progress]="course.progress" [cover]="course.cover"
+                [title]="course.title"></app-enrolled-course>
+        </div>
+    </section>
+
+    <!-- Recommended Courses Section -->
+    <section class="container mx-auto mt-12">
+        <h2 class="text-3xl font-bold m-6">Recommended for you</h2>
+        <!-- Add a grid or carousel showcasing featured courses -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <app-card *ngFor="let course of user.recommendedCourses" [brief]="course.brief" [cover]="course.cover"
+                [title]="course.title"></app-card>
+        </div>
+    </section>
+
+    <!-- Featured Courses Section -->
+    <section class="container mx-auto mt-12">
+        <h2 class="text-3xl font-bold m-6">Featured Courses</h2>
+        <!-- Add a grid or carousel showcasing featured courses -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <app-card *ngFor="let course of topCourses" [brief]="course.brief" [cover]="course.cover"
+                [title]="course.title"></app-card>
+        </div>
+    </section>
+</div>

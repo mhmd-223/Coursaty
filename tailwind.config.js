@@ -21,7 +21,7 @@ module.exports = {
         /* for dark mode */
         'cpd-1': '#222831',
         'cpd-2': '#393E46',
-        'cpd-3': '#00ADB5',
+        'cpd-3': '#FAF9F6',
         'cpd-4': '#EEEEEE'
       },
       fontFamily: {

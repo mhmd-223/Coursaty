@@ -8,3 +8,11 @@
 p {
   margin: .25rem 0 .25rem .25rem;
 }
+
+.menu {
+  @apply absolute z-10 top-0 sm:top-auto left-0 sm:left-auto bottom-0 sm:bottom-auto right-0 max-h-screen sm:mr-2 overflow-y-auto rounded-lg dropdown bg-darkSlateBlue text-gray-200 dark:bg-cpd-2 dark:text-cpd-3 sm:mt-5
+}
+
+.menu-item {
+ @apply flex items-center m-2 pl-2 justify-start hover:text-black duration-300
+}

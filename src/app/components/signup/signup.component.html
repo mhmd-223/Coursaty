@@ -1,6 +1,6 @@
 <div class="p-8 flex flex-col items-center justify-center mt-6">
     <div
-        class="flex flex-col bg-cp-3 dark:bg-cpd-2 dark:text-cpd-3 text-darkSlateBlue shadow-xl px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
+        class="flex flex-col bg-darkSlateBlue dark:bg-cpd-2 dark:text-cpd-3 text-gray-200 shadow-xl px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
         <div class="font-medium self-center text-xl sm:text-2xl uppercase">join us for free</div>
         <div class="mt-10">
             <form action="#">
@@ -8,7 +8,7 @@
                 <div class="flex flex-col mb-6">
                     <label for="name" class="mb-1 text-xs sm:text-sm tracking-wide">Full Name</label>
                     <div class="relative">
-                        <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 ">
+                        <div class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
                             <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
                                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
@@ -16,7 +16,7 @@
                             </svg>
                         </div>
                         <input id="name" type="text" name="name"
-                            class="text-sm sm:text-base  pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-darkSlateBlue dark:text-darkTurquoise"
+                            class="text-sm sm:text-base text-darkSlateBlue pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-darkSlateBlue dark:text-darkTurquoise"
                             placeholder="Full name" required />
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <label for="email" class="mb-1 text-xs sm:text-sm tracking-wide">E-Mail
                         Address</label>
                     <div class="relative">
-                        <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 ">
+                        <div class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
                             <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
                                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
@@ -35,7 +35,7 @@
                         </div>
 
                         <input id="email" type="email" name="email"
-                            class="text-sm sm:text-base  pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-darkSlateBlue dark:text-darkTurquoise"
+                            class="text-sm sm:text-base text-darkSlateBlue pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-darkSlateBlue dark:text-darkTurquoise"
                             placeholder="E-Mail Address" required />
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                 <div class="flex flex-col mb-6">
                     <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide">Password</label>
                     <div class="relative">
-                        <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 ">
+                        <div class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
                             <span>
                                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -54,7 +54,7 @@
                             </span>
                         </div>
                         <input id="password" type="password" name="password"
-                            class="text-sm sm:text-base dark:text-darkTurquoise pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                            class="text-sm sm:text-base text-darkSlateBlue dark:text-darkTurquoise pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
                             placeholder="Password" required />
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                 <div class="flex flex-col mb-6">
                     <label for="confirmpass" class="mb-1 text-xs sm:text-sm tracking-wide">Password</label>
                     <div class="relative">
-                        <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 ">
+                        <div class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
                             <span>
                                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,14 +73,14 @@
                             </span>
                         </div>
                         <input id="confirmpass" type="password" name="confirmpass"
-                            class="text-sm sm:text-base dark:text-darkTurquoise pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                            class="text-sm sm:text-base text-darkSlateBlue dark:text-darkTurquoise pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
                             placeholder="Confirm Password" required />
                     </div>
                 </div>
 
                 <div class="flex w-full">
                     <button type="submit"
-                        class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-darkSlateBlue hover:bg-cpd-1 dark:bg-cpd-3 dark:hover:bg-darkTurquoise rounded py-2 w-full transition duration-150 ease-in">
+                        class="login-sign-btn">
                         <span class="mr-2 uppercase">sign up</span>
                         <span>
                             <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -95,8 +95,8 @@
         </div>
 
         <div class="flex justify-center items-center mt-6">
-            <a href="#" target="_blank"
-                class="inline-flex items-center font-bold hover:text-cpd-1 dark:hover:text-cpd-4 text-xs text-center">
+            <a routerLink="/login"
+                class="inline-flex items-center font-semibold hover:text-cpd-1 dark:hover:text-cpd-4 text-xs text-center">
                 <span>
                     <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         viewBox="0 0 24 24" stroke="currentColor">

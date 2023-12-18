@@ -1,0 +1,7 @@
+.btn {
+    @apply border-solid border-2 border-darkSlateBlue dark:border-cpd-2 dark:text-cpd-3 text-darkSlateBlue hover:bg-darkSlateBlue dark:hover:bg-cpd-2 dark:hover:text-cpd-3 hover:text-gray-200 font-semibold duration-500 py-2 px-4 rounded-full
+}
+
+.outcomes ul li::marker {
+    content: '✓  ';
+}

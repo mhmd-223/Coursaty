@@ -10,6 +10,11 @@ import { AlertComponent } from './components/alert/alert.component';
 import { CardComponent } from './components/card/card.component';
 import { CourseStudyComponent } from './components/course-study/course-study.component';
 import { CourseDisplayComponent } from './components/course-display/course-display.component';
+import { CourseModuleComponent } from './components/course-module/course-module.component';
+import { LessonComponent } from './components/lesson/lesson.component';
+import { HomeComponent } from './components/home/home.component';
+import { EnrolledCourseComponent } from './components/enrolled-course/enrolled-course.component';
+import { ForumsComponent } from './components/forums/forums.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +26,11 @@ import { CourseDisplayComponent } from './components/course-display/course-displ
     CardComponent,
     CourseStudyComponent,
     CourseDisplayComponent,
+    CourseModuleComponent,
+    LessonComponent,
+    HomeComponent,
+    EnrolledCourseComponent,
+    ForumsComponent,
   ],
   imports: [
     BrowserModule,
