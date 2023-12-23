@@ -21,11 +21,13 @@
                 <!-- Profile avatar -->
                 <div *ngIf="loggedIn">
                     <div class="flex flex-col items-center gap-4 p-2">
-                        <img class="w-20 h-20 rounded-full ring ring-gray-700 object-cover"
-                            src="../assets/cat-in-hoodie.jpeg" alt="avatar">
+                        <a routerLink="/profile">
+                            <img class="w-20 h-20 rounded-full ring ring-gray-700 object-cover" [src]="user?.image"
+                                alt="avatar">
+                        </a>
                         <div class="flex flex-col font-medium dark:text-white items-center">
-                            <div class="font-bold dark:text-cpd-3">Lorem Ipsum</div>
-                            <div class="text-xs text-gray-400">lorem&#64;ipsum</div>
+                            <div class="font-bold dark:text-cpd-3">{{user?.fullname}}</div>
+                            <div class="text-xs text-gray-400">{{user?.email}}</div>
                         </div>
                     </div>
                 </div>
@@ -67,8 +69,9 @@
                     </div>
 
                     <!-- Search bar -->
-                    <form action="" class="relative mx-auto w-max hidden sm:block">
-                        <input type="search" placeholder="Search courses..."
+                    <form #searchQu="ngForm" (ngSubmit)="search(searchQu)"
+                        class="relative mx-auto w-max hidden sm:block">
+                        <input ngModel name="query" type="search" placeholder="Search courses..."
                             class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-gray-200 dark:focus:border-cpd-3 focus:pl-16 focus:pr-4 focus:placeholder-gray-200 dark:focus:placeholder-cpd-3" />
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-200 dark:stroke-cpd-3 px-3.5 peer-focus:border-gray-200 dark:peer-focus:border-cpd-3 peer-focus:stroke-gray-200 dark:peer-focus:stroke-cpd3"
@@ -103,8 +106,8 @@
 
                 <!-- For mobiles -->
                 <div class="flex pl-4 justify-start block sm:hidden" *ngIf="loggedIn">
-                    <img class="w-16 h-16 p-1 object-cover rounded-full ring-2 ring-gray-500" src="../assets/pic.jpg"
-                        alt="avatar">
+                    <img class="w-16 h-16 p-1 object-cover rounded-full ring-2 ring-gray-500" [src]="user?.image"
+                        alt="avatar" routerLink="/profile">
                 </div>
 
                 <div *ngIf="!loggedIn" class="w-full block sm:hidden flex flex-col justify-center items-center py-6">
@@ -132,10 +135,7 @@
 
             <!-- Content -->
             <div>
-                <!-- <router-outlet></router-outlet> -->
-                <!-- <app-course-study></app-course-study> -->
-                <!-- <app-enrolled-course></app-enrolled-course> -->
-                <!-- <app-card></app-card> -->
+                <router-outlet></router-outlet>
             </div>
 
             <!-- Footer Section -->

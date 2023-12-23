@@ -1,42 +1,48 @@
-<div class="container m-5 p-5 text-lg">
+<div class="container m-5 p-5 text-lg" *ngIf="lesson && course">
+    <button class="flex items-center justify-between hover:text-gray-600 duration-500"
+        [routerLink]="['/courses', courseId, 'study']">
+        <svg class="w-5 h-5 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13" />
+        </svg>Back to Course</button>
     <!-- Lesson Video Player -->
-    <div class="mb-8">
-        <h2 class="text-xl font-semibold mb-4">Lesson 1: Introduction to the Course</h2>
-        <div class="aspect-w-16 aspect-h-9 h- flex flex-col items-center">
-            <!-- Replace the URL with your video URL -->
-            <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/rI_y2GAlQFM"
-                allowfullscreen></iframe>
+    <div class="my-8">
+        <div class="flex justify-between">
+            <div class="mb-8">
+                <h1 class="text-3xl font-semibold mb-8">Module {{moduleNumber}}: {{course.courseModules[moduleNumber -
+                    1].title}}</h1>
+                <h2 class="text-xl font-semibold mb-4">Lesson {{lessonNumber}}: {{lesson.title}}</h2>
+            </div>
+            <div>
+                <button (click)="toggleLessonStatus()" class="mr-2" [class.finished]="lesson.isFinished">
+                    {{ lesson.isFinished ? 'Mark as Unfinished' : 'Mark as Finished' }}
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-col items-center">
+            <video controls class="w-full md:w-1/2 h-auto rounded-md shadow-md">
+                <source [src]="lesson.url" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
     </div>
 
-    <!-- Lesson Content -->
-    <div>
-        <h2 class="text-xl font-semibold  mb-4">Lesson Content</h2>
-        <p>In this lesson, you will learn about the fundamentals of the course. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Nullam non justo vel lacus fermentum tincidunt.</p>
-    </div>
 
-    <div class="flex flex-col sm:flex-row justify-between mt-5">
-        <!-- Quiz Section -->
-        <div class="mt-8 flex flex-col">
-            <h2 class="text-2xl font-bold mb-4">Quiz</h2>
-            <!-- Add quiz content and questions here -->
-            <p>Complete the quiz to test your understanding of the lesson.</p>
-            <!-- Add quiz components or integrate with a quiz platform -->
-            <button class="quiz-btn">
+    <!-- Quiz Section -->
+    <div *ngIf="lessonNumber == course.courseModules[moduleNumber - 1].lessons.length" class="mt-8">
+        <h2 class="text-2xl font-bold mb-4">Quiz</h2>
+        <div class="flex justify-between items-center">
+            <span class="flex-grow">
+                Complete the quiz to test your understanding of this module.
+            </span>
+            <button class="quiz-btn inline" [routerLink]="['/courses', courseId, 'quiz']"
+                [queryParams]="{'module': moduleNumber}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                     <path
                         d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
                 </svg>
                 Start Quiz
             </button>
-        </div>
-        <!-- Discussion Section -->
-        <div class="mt-8">
-            <h2 class="text-2xl font-bold  mb-4">Discussion Forum</h2>
-            <!-- Add discussion forum components or integrate with an existing forum platform -->
-            <a href="#" class="hover:text-gray-600 duration-500 underline">Join</a> the discussion with other participants to ask questions and share insights related
-                to this lesson.
         </div>
     </div>
 </div>

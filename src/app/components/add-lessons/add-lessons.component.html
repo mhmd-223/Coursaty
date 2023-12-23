@@ -1,0 +1,61 @@
+<!-- add-lessons.component.html -->
+
+<div class="container mx-auto mt-5 p-5 w-full">
+    <h1 class="text-4xl font-bold mb-10">Add New Lesson</h1>
+
+    <form #lessonForm="ngForm" (ngSubmit)="onSubmit(lessonForm)">
+        <div class="mb-4">
+            <label for="lessonTitle" class="block text-lg font-medium">Lesson Title</label>
+            <input type="text" id="lessonTitle" name="lessonTitle" ngModel class="mt-1 p-2 w-full border rounded-md"
+                required>
+        </div>
+
+        <div class="mb-4">
+            <label for="lessonUrl" class="block text-lg font-medium">Lesson URL</label>
+            <input type="text" id="lessonUrl" name="lessonUrl" ngModel class="mt-1 p-2 w-full border rounded-md"
+                required>
+        </div>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add
+            Lesson</button>
+    </form>
+
+    <button (click)="openQuizForm()"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 mb-10">
+        Add Quiz
+    </button>
+    <div *ngIf="isQuizFormOpen">
+        <form #quizForm="ngForm" (ngSubmit)="onQuizSubmit(quizForm)">
+            <label for="qTitle" class="block text-lg font-medium">Quiz Title</label>
+            <input type="text" id="qTitle" name="title" ngModel class="mt-1 p-2 w-full border rounded-md" required>
+
+            <form #questionForm="ngForm" (ngSubmit)="onQuestionSubmit(questionForm)">
+                <label for="question" class="block text-lg font-medium">Question</label>
+                <input type="text" id="question" name="question" ngModel class="mt-1 p-2 w-full border rounded-md"
+                    required>
+                <label for="answer#1" class="block text-lg font-medium">Answer 1</label>
+                <input type="text" id="answer#1" name="answer1" ngModel class="mt-1 p-2 w-full border rounded-md"
+                    required>
+                <label for="answer#2" class="block text-lg font-medium">Answer 2</label>
+                <input type="text" id="answer#2" name="answer2" ngModel class="mt-1 p-2 w-full border rounded-md"
+                    required>
+                <label for="answer#3" class="block text-lg font-medium">Answer 3</label>
+                <input type="text" id="answer#3" name="answer3" ngModel class="mt-1 p-2 w-full border rounded-md"
+                    >
+                <label for="answer#4" class="block text-lg font-medium">Answer 4</label>
+                <input type="text" id="answer#4" name="answer4" ngModel class="mt-1 p-2 w-full border rounded-md"
+                    >
+                <label for="correct" class="block text-lg font-medium">Correct Answer</label>
+                <input type="number" id="correct" name="correctAnswer" min="1" max="4" ngModel class="mt-1 p-2 w-full border rounded-md"
+                    required>
+
+                <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-10 rounded">Add
+                    Quesion</button>
+            </form>
+            <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-10 rounded">Add
+                    Quiz</button>
+        </form>
+    </div>
+</div>

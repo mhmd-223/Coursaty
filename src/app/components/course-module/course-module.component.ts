@@ -1,4 +1,5 @@
 import { Component, Input, Pipe, PipeTransform } from '@angular/core';
+import { Module } from '../../models/module.model';
 
 @Component({
   selector: 'app-course-module',
@@ -7,9 +8,7 @@ import { Component, Input, Pipe, PipeTransform } from '@angular/core';
 })
 export class CourseModuleComponent {
   displayModuleDetails: boolean = false;
-  @Input() title: string = '';
-  @Input() description: string = '';
-  @Input() lessons: string[] = [];
+  @Input() module: Module | undefined;
   toggle() {
     this.displayModuleDetails = !this.displayModuleDetails;
   }

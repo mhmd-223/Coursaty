@@ -1,0 +1,82 @@
+<div *ngIf="course" class="container m-5">
+    <h1 class="text-5xl font-extrabold mb-10">{{course.title}}</h1>
+    <div class="flex justify-center">
+        <img [src]="course.image" alt="course-img" class="items-center mb-10" width="60%">
+    </div>
+    <div class="relative overflow-x-auto mb-10">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-sm text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Enrolled Students
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Posts On This Course
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Modules
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white text-center border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{course.subscribers}}
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{course.posts.length}}
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{course.courseModules.length}}
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-10">
+        <h2 class="text-3xl font-bold mb-4">Modules</h2>
+        <ul class="list-disc pl-6">
+            <li *ngFor="let module of course.courseModules; let moduleId = index" class="mb-2 ml-5 text-lg">
+                <div (click)="toggleLessons(moduleId)" class="underline cursor-pointer">
+                    {{module.title}}
+                </div>
+                <ul *ngIf="showLessons[moduleId]" class="list-disc pl-8">
+                    <li *ngFor="let lesson of module.lessons">
+                        {{lesson.title}}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <button (click)="openAddModuleForm()"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+        Add Module
+    </button>
+    
+    <div *ngIf="isAddModuleFormOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute inset-0 bg-gray-800 opacity-50 dark:bg-gray-700"></div>
+        <div class="bg-white dark:bg-gray-800 p-8 rounded shadow-lg z-10">
+            <h2 class="text-2xl font-bold mb-4">Add Module</h2>
+            <form #moduleForm="ngForm" (ngSubmit)="addModule(moduleForm)">
+                <div class="mb-4">
+                    <label for="moduleTitle" class="block text-lg font-medium">Module Title</label>
+                    <input type="text" id="moduleTitle" name="title" ngModel class="mt-1 p-2 w-full border rounded-md">
+                </div>
+
+                <div class="mb-4">
+                    <label for="moduleDescription" class="block text-lg font-medium">Module Description</label>
+                    <textarea id="moduleDescription" name="description" ngModel
+                        class="mt-1 p-2 w-full border rounded-md"></textarea>
+                </div>
+
+                <button type="submit"
+                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add</button>
+                <button type="button" (click)="closeAddModuleForm()"
+                    class="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+
+</div>

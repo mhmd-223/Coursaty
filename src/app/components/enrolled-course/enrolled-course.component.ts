@@ -1,12 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Course } from '../../models/course.model';
+import { ProgressService } from '../../services/progress.service';
 
 @Component({
   selector: 'app-enrolled-course',
   templateUrl: './enrolled-course.component.html',
   styleUrls: ['./enrolled-course.component.css', '../card/card.component.css']
 })
-export class EnrolledCourseComponent {
-  @Input() title: string = 'java';
-  @Input() cover: string = '../../../assets/JS.png';
-  @Input() progress: number = 50;
+export class EnrolledCourseComponent implements OnInit {
+  @Input() course: Course | undefined;
+  progress: number = 0;
+
+  constructor(private progressServ: ProgressService) { }
+
+  ngOnInit(): void {
+    if (this.course)
+      this.progress = this.progressServ.calculateProgress(this.course)
+  }
 }

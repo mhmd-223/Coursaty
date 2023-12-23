@@ -1,22 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { User } from './models/user.model';
+import { NavigatorService } from './services/navigator.service';
+import { NgForm } from '@angular/forms';
+import { CourseService } from './services/course.service';
+import { Course } from './models/course.model';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-sortByDate() {
-throw new Error('Method not implemented.');
-}
+export class AppComponent implements OnInit {
+
+
+  loggedIn: boolean | undefined;
+  user: User | null | undefined;
+
+  constructor(
+    private authService: AuthService,
+    private navigator: NavigatorService,
+    private courseService: CourseService) { }
+
+  ngOnInit(): void {
+    this.navigator.getRouter().events.subscribe(
+      () => {
+        this.user = this.authService.getUserData();
+        this.loggedIn = this.authService.isAuthenticated();
+      }
+    )
+  }
+
   hidden: boolean = false;
   enablDarkMode: boolean = false;
-  loggedIn: boolean = false;
   title = 'Coursaty';
+
+
+  search(search: NgForm) {
+    const query = search.value;
+    if (query !== '') {
+      this.navigator.navigateToWithQuery('/courses', query['query'])
+    }
+  }
   navbarItems: { title: string; paths: string[]; link: string }[] = [
     { title: 'Home', link: '/', paths: ['M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z', 'M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z'] },
-    { title: 'Courses', link: '', paths: ['M4.5 4.5a3 3 0 00-3 3v9a3 3 0 003 3h8.25a3 3 0 003-3v-9a3 3 0 00-3-3H4.5zM19.94 18.75l-2.69-2.69V7.94l2.69-2.69c.944-.945 2.56-.276 2.56 1.06v11.38c0 1.336-1.616 2.005-2.56 1.06z'] },
-    { title: 'Forums', link: '', paths: ['M4.913 2.658c2.075-.27 4.19-.408 6.337-.408 2.147 0 4.262.139 6.337.408 1.922.25 3.291 1.861 3.405 3.727a4.403 4.403 0 00-1.032-.211 50.89 50.89 0 00-8.42 0c-2.358.196-4.04 2.19-4.04 4.434v4.286a4.47 4.47 0 002.433 3.984L7.28 21.53A.75.75 0 016 21v-4.03a48.527 48.527 0 01-1.087-.128C2.905 16.58 1.5 14.833 1.5 12.862V6.638c0-1.97 1.405-3.718 3.413-3.979z', 'M15.75 7.5c-1.376 0-2.739.057-4.086.169C10.124 7.797 9 9.103 9 10.609v4.285c0 1.507 1.128 2.814 2.67 2.94 1.243.102 2.5.157 3.768.165l2.782 2.781a.75.75 0 001.28-.53v-2.39l.33-.026c1.542-.125 2.67-1.433 2.67-2.94v-4.286c0-1.505-1.125-2.811-2.664-2.94A49.392 49.392 0 0015.75 7.5z'] }
+    { title: 'Courses', link: '/courses', paths: ['M4.5 4.5a3 3 0 00-3 3v9a3 3 0 003 3h8.25a3 3 0 003-3v-9a3 3 0 00-3-3H4.5zM19.94 18.75l-2.69-2.69V7.94l2.69-2.69c.944-.945 2.56-.276 2.56 1.06v11.38c0 1.336-1.616 2.005-2.56 1.06z'] },
   ];
 }
 

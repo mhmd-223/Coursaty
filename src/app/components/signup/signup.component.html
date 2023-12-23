@@ -1,86 +1,106 @@
 <div class="p-8 flex flex-col items-center justify-center mt-6">
+    <app-alert *ngIf="emailNotValid" [type]="'danger'" [title]="'Invalid Email'"
+        [body]="'This email is already signed up.'"></app-alert>
+    <app-alert *ngIf="passwordsNotMatch" [type]="'danger'" [title]="'Invalid Password Confiramtion'"
+        [body]="'Password and confirm password do not match'"></app-alert>
+    <app-alert *ngIf="nameNotValid" [type]="'danger'" [title]="'Invalid Name'"
+        [body]="'Name must contain only alphabetical characters and spaces.'"></app-alert>
     <div
         class="flex flex-col bg-darkSlateBlue dark:bg-cpd-2 dark:text-cpd-3 text-gray-200 shadow-xl px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
         <div class="font-medium self-center text-xl sm:text-2xl uppercase">join us for free</div>
         <div class="mt-10">
-            <form action="#">
-                <!-- Name -->
-                <div class="flex flex-col mb-6">
-                    <label for="name" class="mb-1 text-xs sm:text-sm tracking-wide">Full Name</label>
-                    <div class="relative">
-                        <div class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
-                            <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" />
-                            </svg>
-                        </div>
-                        <input id="name" type="text" name="name"
-                            class="text-sm sm:text-base text-darkSlateBlue pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-darkSlateBlue dark:text-darkTurquoise"
-                            placeholder="Full name" required />
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="flex flex-col mb-6">
-                    <label for="email" class="mb-1 text-xs sm:text-sm tracking-wide">E-Mail
-                        Address</label>
-                    <div class="relative">
-                        <div class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
-                            <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                            </svg>
-                        </div>
-
-                        <input id="email" type="email" name="email"
-                            class="text-sm sm:text-base text-darkSlateBlue pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-darkSlateBlue dark:text-darkTurquoise"
-                            placeholder="E-Mail Address" required />
-                    </div>
-                </div>
-
-                <!-- Password -->
-                <div class="flex flex-col mb-6">
-                    <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide">Password</label>
-                    <div class="relative">
-                        <div class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
-                            <span>
+            <form (ngSubmit)="submit(form)" #form="ngForm" ngNativeValidate>
+                <div>
+                    <!-- Name -->
+                    <div class="flex flex-col mb-6">
+                        <label for="name" class="mb-1 text-xs sm:text-sm tracking-wide">Full Name</label>
+                        <div class="relative">
+                            <div
+                                class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
                                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                     <path
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                        d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" />
                                 </svg>
-                            </span>
+                            </div>
+                            <input ngModel id="name" type="text" name="fullname"
+                                class="text-sm sm:text-base text-darkSlateBlue pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-darkSlateBlue dark:text-darkTurquoise"
+                                placeholder="Full name" required />
                         </div>
-                        <input id="password" type="password" name="password"
-                            class="text-sm sm:text-base text-darkSlateBlue dark:text-darkTurquoise pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                            placeholder="Password" required />
                     </div>
-                </div>
 
-                <!-- Password confirmation -->
-                <div class="flex flex-col mb-6">
-                    <label for="confirmpass" class="mb-1 text-xs sm:text-sm tracking-wide">Password</label>
-                    <div class="relative">
-                        <div class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
-                            <span>
+                    <!-- Email -->
+                    <div class="flex flex-col mb-6">
+                        <label for="email" class="mb-1 text-xs sm:text-sm tracking-wide">E-Mail
+                            Address</label>
+                        <div class="relative">
+                            <div
+                                class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
                                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                     <path
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                        d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                                 </svg>
-                            </span>
+                            </div>
+
+                            <input ngModel id="email" type="email" name="email"
+                                class="text-sm sm:text-base text-darkSlateBlue pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-darkSlateBlue dark:text-darkTurquoise"
+                                placeholder="E-Mail Address" required />
                         </div>
-                        <input id="confirmpass" type="password" name="confirmpass"
-                            class="text-sm sm:text-base text-darkSlateBlue dark:text-darkTurquoise pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                            placeholder="Confirm Password" required />
                     </div>
+
+                    <!-- Password -->
+                    <div class="flex flex-col mb-6">
+                        <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide">Password</label>
+                        <div class="relative">
+                            <div
+                                class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
+                                <span>
+                                    <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <input ngModel id="password" type="password" name="password"
+                                class="text-sm sm:text-base text-darkSlateBlue dark:text-darkTurquoise pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                                placeholder="Password" required />
+                        </div>
+                    </div>
+
+                    <!-- Password confirmation -->
+                    <div class="flex flex-col mb-6">
+                        <label for="confirmpass" class="mb-1 text-xs sm:text-sm tracking-wide">Confirm Password</label>
+                        <div class="relative">
+                            <div
+                                class="inline-flex text-darkSlateBlue items-center justify-center absolute left-0 top-0 h-full w-10 ">
+                                <span>
+                                    <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <input ngModel id="confirmpass" type="password" name="confirmpass"
+                                class="text-sm sm:text-base text-darkSlateBlue dark:text-darkTurquoise pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                                placeholder="Confirm Password" required />
+                        </div>
+                    </div>
+                    <label class="mb-1 text-xs sm:text-sm tracking-wide">Role</label>
+                    <div class="flex justify-between mb-6 items-center">
+                        <label *ngFor="let role of roles" class="inline-flex items-center">
+                            <input ngModel type="radio" name="role" [value]="role" required>
+                            <span class="ml-2">{{ role }}</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
                 </div>
 
                 <div class="flex w-full">
-                    <button type="submit"
-                        class="login-sign-btn">
+                    <button type="submit" class="login-sign-btn">
                         <span class="mr-2 uppercase">sign up</span>
                         <span>
                             <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"

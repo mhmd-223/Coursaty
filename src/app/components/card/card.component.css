@@ -3,5 +3,5 @@
 }
 
 .card-container {
-    @apply relative max-w-sm bg-darkSlateBlue text-gray-200 border-2 border-gray-700 rounded-lg shadow-lg dark:bg-gray-800 m-2
+    @apply relative max-w-sm bg-darkSlateBlue text-gray-200 border-2 border-gray-700 rounded-lg shadow-lg dark:bg-gray-800 m-2 hover:scale-[105%] duration-300
 }

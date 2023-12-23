@@ -1,0 +1,40 @@
+<div class="container mx-auto mt-5 p-5 w-full">
+    <h1 class="text-4xl font-bold mb-10">Add New Course</h1>
+
+    <form #courseForm="ngForm" (ngSubmit)="onSubmit(courseForm)">
+        <div class="mb-4">
+            <label for="title" class="block text-lg font-medium">Title</label>
+            <input type="text" id="title" name="title" ngModel class="mt-1 p-2 w-full border rounded-md" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="brief" class="block text-lg font-medium">Brief</label>
+            <textarea id="brief" name="brief" ngModle class="mt-1 p-2 w-full border rounded-md" required></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label for="description" class="block text-lg font-medium">Description</label>
+            <textarea id="description" name="description" ngModel class="mt-1 p-2 w-full border rounded-md"
+                required></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label for="tags" class="block text-lg font-medium">Tags (each on a new line)</label>
+            <textarea id="tags" name="tags" ngModel class="mt-1 p-2 w-full border rounded-md" required></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label for="image" class="block text-lg font-medium">Image Path</label>
+            <input type="text" id="image" name="image" ngModel class="mt-1 p-2 w-full" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="preview_url" class="block text-lg font-medium">Preview Video Path</label>
+            <input type="text" id="preview_url" name="preview_url" ngModel class="mt-1 p-2 w-full" required>
+        </div>
+
+        <button type="submit" [disabled]="courseForm.invalid"
+            class="bg-blue-500 hover:opacity-[60%] duration-100 text-white px-4 py-2 rounded-md mt-10">Add
+            Course</button>
+    </form>
+</div>

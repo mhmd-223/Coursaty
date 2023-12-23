@@ -1,16 +1,15 @@
 <div class="card-container">
-    <!-- enrolled-course.component.html -->
     <div class="rounded-md shadow-md">
-        <img [src]="cover" alt="Course Cover" class="object-cover mb-4 rounded-md">
+        <img [src]="course?.image" alt="Course Cover" class="object-cover mb-4 rounded-md">
         <div class="p-2">
-            <h3 class="text-lg font-bold mb-2">{{ title }}</h3>
+            <h3 class="text-lg font-bold mb-2">{{ course?.title }}</h3>
             <div class="flex items-center mb-2">
                 <div class="bg-gray-300 h-2 w-full rounded-full">
                     <div [style.width.%]="progress" class="bg-gray-800 h-full rounded-full"></div>
                 </div>
                 <span class="ml-2 text-sm text-center">{{ progress }}% Completed</span>
             </div>
-            <button class="card-btn">Continue Learning</button>
+            <button class="card-btn" [routerLink]="['/courses', course?.id, 'study']">Continue Learning</button>
         </div>
     </div>
 </div>

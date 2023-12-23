@@ -3,7 +3,7 @@
         class="flex flex-col bg-darkSlateBlue dark:bg-cpd-2 dark:text-cpd-3 text-gray-200 shadow-xl px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
         <div class="font-medium self-center text-xl sm:text-2xl uppercase">Login To Your Account</div>
         <div class="mt-10">
-            <form action="#">
+            <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" ngNativeValidate>
                 <div class="flex flex-col mb-6">
                     <label for="email" class="mb-1 text-xs sm:text-sm tracking-wide">E-Mail
                         Address</label>
@@ -16,7 +16,7 @@
                                     d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                             </svg>
                         </div>
-                        <input id="email" type="email" name="email"
+                        <input ngModel id="email" type="email" name="email"
                             class="text-sm sm:text-base  pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none text-darkSlateBlue focus:border-darkSlateBlue dark:text-darkTurquoise"
                             placeholder="E-Mail Address" required />
                     </div>
@@ -35,7 +35,7 @@
                             </span>
                         </div>
 
-                        <input id="password" type="password" name="password"
+                        <input ngModel id="password" type="password" name="password"
                             class="text-sm sm:text-base dark:text-darkTurquoise text-darkSlateBlue pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
                             placeholder="Password" required />
                     </div>
@@ -49,8 +49,7 @@
                 </div>
 
                 <div class="flex w-full">
-                    <button type="submit"
-                        class="login-sign-btn">
+                    <button type="submit" class="login-sign-btn">
                         <span class="mr-2 uppercase">Login</span>
                         <span>
                             <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"

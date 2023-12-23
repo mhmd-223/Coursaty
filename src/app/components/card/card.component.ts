@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-card',
@@ -6,7 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './card.component.css'
 })
 export class CardComponent {
-  @Input() title: string = 'Lorem Ipsum';
-  @Input() brief: string = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur magnam maxime delectus, neque laboriosam aliquam tenetur repellat illum, repellendus fugiat totam nemo veniam, in et iure reprehenderit mollitia laudantium sed.';
-  @Input() cover: string = '../../../assets/JS.png';
+  @Input() course: Course | undefined
 }

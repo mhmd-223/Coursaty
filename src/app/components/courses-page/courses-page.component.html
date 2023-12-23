@@ -1,0 +1,27 @@
+<div class="container mx-auto mt-5 p-5 w-full">
+    <h1 class="text-4xl font-bold mb-10">Explore All Courses</h1>
+
+    <!-- Tags Filter -->
+    <div class="flex flex-col sm:flex-row items-start mb-6 ml-6">
+        <div class="mr-14">
+            <h2 class="text-lg font-semibold mb-2">Filter by Tags</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-1">
+                <div *ngFor="let tag of tags" class="mb-2 ml-2">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" [(ngModel)]="selectedTags[tag]" [value]="tag"
+                            class="form-checkbox focus:ring-darkSlateBlue" />
+                        <span class="ml-2">{{ tag }}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Courses List -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Display filtered courses based on selected tag -->
+            <div *ngFor="let course of filteredCourses" class="mb-6">
+                <app-card [course]="course"></app-card>
+            </div>
+        </div>
+    </div>
+</div>

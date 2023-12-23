@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -7,6 +8,11 @@ import { Component, Input } from '@angular/core';
 })
 
 export class DropdownMenuComponent {
+
+  constructor(private authServ: AuthService) { }
+  logout() {
+    this.authServ.logout();
+  }
 
   isDropdownOpen: boolean = false;
 }

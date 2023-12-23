@@ -15,6 +15,19 @@ import { LessonComponent } from './components/lesson/lesson.component';
 import { HomeComponent } from './components/home/home.component';
 import { EnrolledCourseComponent } from './components/enrolled-course/enrolled-course.component';
 import { ForumsComponent } from './components/forums/forums.component';
+import { ForumDisplayComponent } from './components/forum-display/forum-display.component';
+import { FormsModule } from '@angular/forms';
+import { CoursesPageComponent } from './components/courses-page/courses-page.component';
+import { QuizComponent } from './components/quiz/quiz.component';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { NavigatorService } from './services/navigator.service';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './services/memorydata.service';
+import { CreateCourseComponent } from './components/create-course/create-course.component';
+import { TeachingPageComponent } from './components/teaching-page/teaching-page.component';
+import { AddLessonsComponent } from './components/add-lessons/add-lessons.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +44,22 @@ import { ForumsComponent } from './components/forums/forums.component';
     HomeComponent,
     EnrolledCourseComponent,
     ForumsComponent,
+    ForumDisplayComponent,
+    CoursesPageComponent,
+    QuizComponent,
+    ProfilePageComponent,
+    CreateCourseComponent,
+    TeachingPageComponent,
+    AddLessonsComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 500 }), // Adjust delay as needed
   ],
-  providers: [],
+  providers: [AuthService, NavigatorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,13 +1,9 @@
-<div class="card-container">
-    <a href="#">
-        <img class="rounded-t-lg" [src]="cover" alt="course-cover" />
-    </a>
+<div *ngIf="course" class="card-container">
+    <img class="rounded-t-lg" [src]="course.image" alt="course-cover" />
     <div class="p-5">
-        <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight dark:text-cpd-3">{{title}}</h5>
-        </a>
-        <p class="mb-3 font-normal  dark:text-gray-400">{{brief}}</p>
-        <a href="#" class="card-btn">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight dark:text-cpd-3">{{course.title}}</h5>
+        <p class="mb-3 font-normal  dark:text-gray-400">{{course.brief}}</p>
+        <a [routerLink]="['/courses', course.id]" class="card-btn">
             Explore Now
             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
