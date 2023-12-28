@@ -1,0 +1,46 @@
+<!-- userProfile.component.html -->
+
+<div *ngIf="user" class="container text-xl mx-auto my-8">
+    <form (ngSubmit)="updateAcc(updateForm)" #updateForm="ngForm" ngNativeValidate>
+
+        <!-- Full Name -->
+        <div class="mb-4">
+            <label for="fullName" class="block  font-bold mb-2">Full Name</label>
+            <input type="text" id="fullName" name="fullName"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                ngModel [placeholder]="user.fullName">
+        </div>
+
+        <!-- Email -->
+        <div class="mb-4">
+            <label for="email" class="block  font-bold mb-2">Email</label>
+            <input type="email" id="email" name="email"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                ngModel [placeholder]="user.email">
+        </div>
+
+        <!-- Bio -->
+        <div class="mb-4">
+            <label for="bio" class="block font-bold mb-2">Bio</label>
+            <textarea id="bio" name="bio" rows="4"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                ngModel [placeholder]="user.bio"></textarea>
+        </div>
+
+        <!-- Image Path -->
+        <div class="mb-4">
+            <label for="imagePath" class="block   font-bold mb-2">Image Path</label>
+            <input type="text" id="imagePath" name="imagePath"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                ngModel [placeholder]="user.image">
+        </div>
+        <!-- Submit Button -->
+        <div class="flex items-center justify-between">
+            <button type="submit"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Update Info
+            </button>
+        </div>
+
+    </form>
+</div>

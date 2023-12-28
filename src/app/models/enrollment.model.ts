@@ -1,6 +1,9 @@
+import { Course } from "./course.model";
+import { User } from "./user.model";
+
 export interface Enrollment {
-    user_id: number | undefined;
-    course_id: number | undefined;
+    user: any;
+    course: any ;
     date: Date;
   }
   

@@ -65,11 +65,11 @@
                     <tr *ngFor="let forum of forums"
                         class="bg-white hover:bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <a [routerLink]="['/courses/', forum.course_id , 'posts',forum.id]"
-                                class="underline">{{forum?.content}}</a>
+                            <a [routerLink]="['/courses/', courseId , 'posts',forum.id]"
+                                class="underline">{{forum?.title}}</a>
                         </th>
                         <td class="px-6 py-4">
-                            <img class="w-10 h-10 rounded-full" [src]="forum.author?.image" alt="Rounded avatar">
+                            <img class="w-10 h-10 rounded-full" [src]="forum.user?.image" alt="Rounded avatar">
                         </td>
                         <td class="px-6 py-4">
                             {{forum.replies.length}}

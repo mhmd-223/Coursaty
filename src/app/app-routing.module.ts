@@ -15,12 +15,12 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { TeachingPageComponent } from './components/teaching-page/teaching-page.component';
 import { AddLessonsComponent } from './components/add-lessons/add-lessons.component';
+import { AccSettingsComponent } from './components/acc-settings/acc-settings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'forums', component: ForumsComponent },
   { path: 'courses', component: CoursesPageComponent },
   { path: 'courses/create', component: CreateCourseComponent},
   { path: 'courses/teaching/:id', component: TeachingPageComponent},
@@ -29,9 +29,10 @@ const routes: Routes = [
   { path: 'courses/:id/posts', component: ForumsComponent },
   { path: 'courses/:id/posts/:postId', component: ForumDisplayComponent, pathMatch: 'full' },
   { path: 'courses/:id/study', component: CourseStudyComponent, canActivate: [AuthGuard] },
-  { path: 'courses/:id/studying', component: AddLessonsComponent, canActivate: [AuthGuard] },
+  { path: 'courses/:id/studying', component: LessonComponent, canActivate: [AuthGuard] },
   { path: 'courses/:id/quiz', component: QuizComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfilePageComponent },
+  { path: 'profile/settings', component: AccSettingsComponent },
 ];
 
 @NgModule({

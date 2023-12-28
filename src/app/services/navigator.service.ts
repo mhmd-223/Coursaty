@@ -28,5 +28,10 @@ export class NavigatorService {
     return this.router;
   }
 
+  executeOnChange(callback: () => void) {
+    this.router.events.subscribe(
+     () => callback()
+    )
+  }
 }
 

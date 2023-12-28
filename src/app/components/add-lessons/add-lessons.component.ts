@@ -9,6 +9,7 @@ import { QuizService } from '../../services/quiz.service';
 import { QuestionService } from '../../services/question.service';
 import { Quiz } from '../../models/quiz.model';
 import { Question } from '../../models/quesion.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-add-lessons',
@@ -17,6 +18,7 @@ import { Question } from '../../models/quesion.model';
 })
 export class AddLessonsComponent {
   id: number = 0;
+  courseId: number = 0;
   isQuizFormOpen = false;
   questionAnswers: number = 0;
   questions: Question[] = []
@@ -25,9 +27,10 @@ export class AddLessonsComponent {
     private route: ActivatedRoute,
     private lessonServ: LessonService,
     private quizService: QuizService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private authServ: AuthService,
   ) {
-    this.route.params.subscribe((params) => (this.id = +params['moduleId']));
+    this.route.params.subscribe((params) => { this.id = +params['moduleId']; this.courseId = +params['id'] });
   }
 
   onSubmit(form: NgForm): void {
@@ -35,13 +38,19 @@ export class AddLessonsComponent {
 
     const newLesson: Lesson = {
       id: 0,
-      module_id: this.id,
+      module: { id: this.id },
       url: lessonUrl,
       title: lessonTitle,
       isFinished: false,
+      userId: this.authServ.getUserData()?.id
     };
 
-    this.lessonServ.addLesson(newLesson);
+    this.lessonServ.addLesson(newLesson).subscribe(
+      {
+        next: () => alert("Lesson added Successfully"),
+        error: err => console.error(err)
+      }
+    )
 
     form.resetForm();
   }
@@ -59,15 +68,24 @@ export class AddLessonsComponent {
 
     const newQuiz: Quiz = {
       title: title,
-      module_id: this.id,
+      module: {id: this.id},
       questions: [],
       id: 0
     };
-
-    this.quizService.addQuiz(newQuiz).subscribe((addedQuiz) => {
+    console.log(newQuiz);
+    
+    this.quizService.addQuiz(newQuiz).subscribe((response) => {
+      const addedQuiz = response.data as Quiz;
       this.questions.forEach(q => {
-        q.quiz_id = addedQuiz.id;
-        this.questionService.addQuestion(q)
+        q.quiz = addedQuiz;
+        console.log(q);
+        
+        this.questionService.addQuestion(q).subscribe(
+          {
+            next: () => console.log('Question added'),
+            error: err => console.error('Error', err),
+          }
+        )
       })
 
       form.resetForm();
@@ -85,10 +103,13 @@ export class AddLessonsComponent {
     const answers = [answer1, answer2, answer3, answer4].filter(ans => ans != '')
     const newQuestion: Question = {
       question: question,
-      correct_answer: +correctAnswer,
-      answers: answers,
+      correctAnswer: +correctAnswer,
+      answer1: answers[0],
+      answer2: answers[1],
+      answer3: answers[3],
+      answer4: answers[4],
       id: 0,
-      quiz_id: 0
+      quiz: {}
     };
     this.questions.push(newQuestion);
     form.resetForm()

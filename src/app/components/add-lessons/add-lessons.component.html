@@ -1,8 +1,10 @@
 <!-- add-lessons.component.html -->
 
 <div class="container mx-auto mt-5 p-5 w-full">
-    <h1 class="text-4xl font-bold mb-10">Add New Lesson</h1>
-
+    <div class="flex justify-between">
+        <h1 class="text-4xl font-bold mb-10">Add New Lesson</h1>
+        <button class="hover:opacity-60" [routerLink]="['/courses/teaching', courseId]">Back To Course Page</button>
+    </div>
     <form #lessonForm="ngForm" (ngSubmit)="onSubmit(lessonForm)">
         <div class="mb-4">
             <label for="lessonTitle" class="block text-lg font-medium">Lesson Title</label>
@@ -11,7 +13,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="lessonUrl" class="block text-lg font-medium">Lesson URL</label>
+            <label for="lessonUrl" class="block text-lg font-medium">Lesson Video URL</label>
             <input type="text" id="lessonUrl" name="lessonUrl" ngModel class="mt-1 p-2 w-full border rounded-md"
                 required>
         </div>
@@ -40,22 +42,19 @@
                 <input type="text" id="answer#2" name="answer2" ngModel class="mt-1 p-2 w-full border rounded-md"
                     required>
                 <label for="answer#3" class="block text-lg font-medium">Answer 3</label>
-                <input type="text" id="answer#3" name="answer3" ngModel class="mt-1 p-2 w-full border rounded-md"
-                    >
+                <input type="text" id="answer#3" name="answer3" ngModel class="mt-1 p-2 w-full border rounded-md">
                 <label for="answer#4" class="block text-lg font-medium">Answer 4</label>
-                <input type="text" id="answer#4" name="answer4" ngModel class="mt-1 p-2 w-full border rounded-md"
-                    >
+                <input type="text" id="answer#4" name="answer4" ngModel class="mt-1 p-2 w-full border rounded-md">
                 <label for="correct" class="block text-lg font-medium">Correct Answer</label>
-                <input type="number" id="correct" name="correctAnswer" min="1" max="4" ngModel class="mt-1 p-2 w-full border rounded-md"
-                    required>
+                <input type="number" id="correct" name="correctAnswer" min="1" max="4" ngModel
+                    class="mt-1 p-2 w-full border rounded-md" required>
 
                 <button type="submit"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-10 rounded">Add
                     Quesion</button>
             </form>
-            <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-10 rounded">Add
-                    Quiz</button>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-10 rounded">Add
+                Quiz</button>
         </form>
     </div>
 </div>

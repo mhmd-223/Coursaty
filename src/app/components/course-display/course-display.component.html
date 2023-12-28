@@ -10,7 +10,7 @@
     <div class="flex flex-col mb-8 items-center">
         <!-- Video Player -->
         <video controls class="w-full md:w-1/2 h-auto rounded-md shadow-md">
-            <source [src]="course.preview_url" type="video/mp4">
+            <source [src]="course.previewUrl" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -27,7 +27,7 @@
         <h2 class="text-xl font-semibold mb-4">Course Contents</h2>
         <div class="flex flex-col gap-4">
             <!-- Assuming you have a courseModules array in your component -->
-            <app-course-module *ngFor="let module of course.courseModules" [module]="module"></app-course-module>
+            <app-course-module *ngFor="let module of course.modules" [module]="module"></app-course-module>
         </div>
     </div>
 
@@ -40,7 +40,9 @@
         <div class="flex items-center">
             <img [src]="course.instructor.image" alt="Instructor Avatar" class="w-16 h-16 rounded-full mr-4">
             <div>
-                <h3 class="text-lg font-semibold hover:underline">{{ course.instructor.fullname }}</h3>
+                <a [routerLink]="['/profile']" [queryParams]="{'id': course.instructor.id}" class="hover:underline">
+                    <h3 class="text-lg font-semibold">{{ course.instructor.fullName }}</h3>
+                </a>
                 {{ course.instructor.bio }}
             </div>
         </div>

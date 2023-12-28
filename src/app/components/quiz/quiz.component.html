@@ -1,23 +1,38 @@
 <div *ngIf="quiz" class="container mx-auto mt-5 p-5">
-    <h1 class="text-3xl font-bold mb-10">Quiz On: {{quiz.title}}</h1>
-  
-    <div *ngFor="let question of quiz.questions; let i = index" class="mb-6">
-      <h2 class="text-xl font-semibold mb-4">Q{{i+1}}. {{ question.question }}</h2>
-  
-      <div *ngFor="let option of question.answers; let j = index" class="mb-2">
-        <label class="inline-flex items-center ml-5">
-          <input
-            type="radio"
-            name="question{{ i }}"
-            [(ngModel)]="answers[i]"
-            [value]="j+1"
-            class="form-radio text-darkSlateBlue focus:ring-darkSlateBlue"
-          />
-          <span class="ml-2">{{ option }}</span>
-        </label>
-      </div>
+  <h1 class="text-3xl font-bold mb-10">Quiz: {{quiz.title}}</h1>
+
+  <div *ngFor="let question of quiz.questions; let i = index" class="mb-6">
+    <h2 class="text-xl font-semibold mb-4">Q{{i+1}}. {{ question.question }}</h2>
+
+    <div class="mb-2">
+      <label class="inline-flex items-center ml-5">
+        <input type="radio" name="question{{ i }}" [(ngModel)]="answers[i]" [value]="1"
+          class="form-radio text-darkSlateBlue focus:ring-darkSlateBlue" />
+        <span class="ml-2">{{ question.answer1 }}</span>
+      </label>
     </div>
-  
-    <button (click)="submitQuiz()" class="bg-darkSlateBlue text-white py-2 px-4 rounded-full">Submit</button>
+    <div class="mb-2">
+      <label class="inline-flex items-center ml-5">
+        <input type="radio" name="question{{ i }}" [(ngModel)]="answers[i]" [value]="2"
+          class="form-radio text-darkSlateBlue focus:ring-darkSlateBlue" />
+        <span class="ml-2">{{ question.answer2 }}</span>
+      </label>
+    </div>
+    <div class="mb-2">
+      <label class="inline-flex items-center ml-5">
+        <input type="radio" name="question{{ i }}" [(ngModel)]="answers[i]" [value]="3"
+          class="form-radio text-darkSlateBlue focus:ring-darkSlateBlue" />
+        <span class="ml-2">{{ question.answer3 }}</span>
+      </label>
+    </div>
+    <div class="mb-2">
+      <label class="inline-flex items-center ml-5">
+        <input type="radio" name="question{{ i }}" [(ngModel)]="answers[i]" [value]="4"
+          class="form-radio text-darkSlateBlue focus:ring-darkSlateBlue" />
+        <span class="ml-2">{{ question.answer3 }}</span>
+      </label>
+    </div>
   </div>
-  
+
+  <button (click)="submitQuiz()" class="bg-darkSlateBlue text-white py-2 px-4 rounded-full">Submit</button>
+</div>

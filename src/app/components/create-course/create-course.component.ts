@@ -1,10 +1,7 @@
 // add-course.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { NgForm } from '@angular/forms';
-import { Role } from '../../models/user.model';
-import { Module } from '../../models/module.model';
-import { Lesson } from '../../models/lesson.model';
 import { AuthService } from '../../services/auth.service';
 import { CourseService } from '../../services/course.service';
 import { Router } from '@angular/router';
@@ -14,28 +11,56 @@ import { Router } from '@angular/router';
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.css'],
 })
-export class CreateCourseComponent {
+export class CreateCourseComponent implements OnInit {
+  constructor(private authServ: AuthService, private courseServ: CourseService, private router: Router) {}
 
-  constructor(private authServ: AuthService, private courseServ: CourseService, private router: Router) { }
+  tags: any[] = []; // Change the type to any to store both title and id
+  selectedTags: { id: number; title: string }[] = [];
+
+  ngOnInit(): void {
+    this.courseServ.getAllTags().subscribe((response) => {
+      this.tags = response.data;
+    });
+  }
+
+  toggleTag(tag: any): void {
+    const existingTag = this.selectedTags.find((t) => t.title === tag.title);
+
+    if (existingTag) {
+      this.selectedTags = this.selectedTags.filter((t) => t.title !== tag.title);
+    } else {
+      this.selectedTags.push({ id: tag.id, title: tag.title });
+    }
+    console.log(this.selectedTags);
+    
+  }
 
   onSubmit(form: NgForm): void {
-    const { title, brief, description, image, preview_url, tags } = form.value
+    const { title, brief, description, image, preview_url } = form.value;
     const newCourse: Course = {
       id: 0,
       title: title,
       brief: brief,
       description: description,
       image: image,
-      preview_url: preview_url,
+      previewUrl: preview_url,
       instructor: this.authServ.getUserData(),
-      courseModules: [],
+      modules: [],
       posts: [],
       subscribers: 0,
-      tags: (tags as string).split('\n').filter(s => s !== '')
-    }
-    this.courseServ.addCourse(newCourse).subscribe(
-      course =>
-        this.router.navigate(['/courses/teaching', course.id])
-    )
+      courseTags: this.selectedTags.map((tag) => tag.id),
+      tags: []
+    };
+
+    console.log(newCourse);
+
+    this.courseServ.addCourse(newCourse).subscribe({
+      next: response => {
+        this.authServ.refetch()
+        this.router.navigate(['/courses/teaching', response.data.id]);
+      },
+      error: err => console.error(err)
+      
+    });
   }
 }

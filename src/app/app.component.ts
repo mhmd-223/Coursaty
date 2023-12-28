@@ -15,8 +15,8 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
 
 
-  loggedIn: boolean | undefined;
-  user: User | null | undefined;
+  loggedIn: boolean = false;
+  user: User | null = null;
 
   constructor(
     private authService: AuthService,
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     private courseService: CourseService) { }
 
   ngOnInit(): void {
-    this.navigator.getRouter().events.subscribe(
+    this.navigator.executeOnChange(
       () => {
         this.user = this.authService.getUserData();
         this.loggedIn = this.authService.isAuthenticated();

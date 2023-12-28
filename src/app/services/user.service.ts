@@ -2,35 +2,32 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, of } from 'rxjs';
 import { User } from '../models/user.model';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'api/users';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  getUserById(userId: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${userId}`);
+  getUserById(userId: any){
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}`);
+  }
+  getUserByEmail(email: any){
+    return this.http.get<any>(`${this.apiUrl}/user/email/${email}`);
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+  getProgress(userId: any, courseId: any) {    
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}/progress/${courseId}`)
   }
 
-  addUser(user: User): Observable<User | null | string> {
-    return this.http.post<User>(`${this.apiUrl}/auth/signup`, user)
-      .pipe(
-        map((response) => {
-          return response;
-        }),
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 400 && error.message.toLowerCase().includes('email'))
-            return of('email');
-          else
-            return of(null)
-        })
-      );
+  recoverAcc(email: string) {
+    return this.http.get<any>(`${this.apiUrl}/user/recover/${email}`)
+  }
+
+  updateInfo(usr: any) {
+    return this.http.put<any>(`${this.apiUrl}/user/update`, usr)
   }
 }

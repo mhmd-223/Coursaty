@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, delay, of } from 'rxjs';
 import { NavigatorService } from '../../services/navigator.service';
 import { AppComponent } from '../../app.component';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -14,9 +15,12 @@ import { AppComponent } from '../../app.component';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+  isForgetPassOpen: boolean = false;
   constructor(
     private authService: AuthService,
-    private navigatorService: NavigatorService
+    private navigatorService: NavigatorService,
+    private userServ: UserService
   ) { }
 
   login(loginForm: NgForm) {
@@ -25,19 +29,31 @@ export class LoginComponent {
     this.authService.login(email, password)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          alert(err.message);
+          console.log(err);
           return of(null);
         }),
-        delay(500) // Simulate an asynchronous operation
       )
-      .subscribe((response: User | null) => {
-        if (response !== null) {
+      .subscribe((response) => {
+        if (response.data)
           this.handleSuccessfulLogin();
-        } else alert('Login failed: Incorrect email or password.')
+        else alert('Login failed: Incorrect email or password.')
       });
   }
 
   private handleSuccessfulLogin() {
     this.navigatorService.navigateTo('/');
+
+  }
+
+
+  forgetPass(form: NgForm) {
+    const {email} = form.value
+  
+    alert("A message sent to " + email)
+    this.userServ.recoverAcc(email).subscribe(
+      () => alert("Your password changed successfully.\nTry to log in again.")
+    )
+
+    this.isForgetPassOpen = false
   }
 }

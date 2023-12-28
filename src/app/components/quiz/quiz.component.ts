@@ -4,6 +4,8 @@ import { QUIZ } from '../../../static_data';
 import { CourseService } from '../../services/course.service';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz } from '../../models/quiz.model';
+import { AuthService } from '../../services/auth.service';
+import { QuizService } from '../../services/quiz.service';
 
 @Component({
   selector: 'app-quiz',
@@ -14,7 +16,7 @@ export class QuizComponent implements OnInit {
   quiz: Quiz | null = null
 
 
-  constructor(private courseServ: CourseService, private route: ActivatedRoute) { }
+  constructor(private courseServ: CourseService, private route: ActivatedRoute, private authServ: AuthService, private quizServ: QuizService) { }
 
 
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class QuizComponent implements OnInit {
       qParams => {
         this.route.params.subscribe(
           params => this.courseServ.getCourseById(+params['id']).subscribe(
-            course => this.quiz = course.courseModules[+qParams['module'] - 1].quiz
+            response => this.quiz = response.data.modules[+qParams['module'] - 1].quiz
           )
         )
       }
@@ -33,10 +35,20 @@ export class QuizComponent implements OnInit {
   score: number = 0;
 
   submitQuiz(): void {
-    console.log(this.answers)
     this.answers.forEach((answer, i) => {
-      if (answer === this.quiz?.questions[i].correct_answer) this.score++;
+      if (answer === this.quiz?.questions[i].correctAnswer) this.score++;
     })
-    console.log(this.score)
+    const quiz = {
+      score: this.score,
+      user: {
+        id: this.authServ.getUserData()?.id
+      },
+      quiz: {
+        id: this.quiz?.id
+      }
+    }
+    this.quizServ.submitQuiz(quiz).subscribe(
+      () => alert(`Quiz submitted\nYour correct answers are ${this.score} out of ${this.quiz?.questions.length}`)
+    )
   }
 }

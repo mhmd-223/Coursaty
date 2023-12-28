@@ -23,11 +23,10 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { NavigatorService } from './services/navigator.service';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './services/memorydata.service';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { TeachingPageComponent } from './components/teaching-page/teaching-page.component';
 import { AddLessonsComponent } from './components/add-lessons/add-lessons.component';
+import { AccSettingsComponent } from './components/acc-settings/acc-settings.component';
 
 @NgModule({
   declarations: [
@@ -51,13 +50,14 @@ import { AddLessonsComponent } from './components/add-lessons/add-lessons.compon
     CreateCourseComponent,
     TeachingPageComponent,
     AddLessonsComponent,
+    AccSettingsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 500 }), // Adjust delay as needed
+    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 500 }), // Adjust delay as needed
   ],
   providers: [AuthService, NavigatorService],
   bootstrap: [AppComponent]

@@ -5,9 +5,9 @@
             <h3 class="text-lg font-bold mb-2">{{ course?.title }}</h3>
             <div class="flex items-center mb-2">
                 <div class="bg-gray-300 h-2 w-full rounded-full">
-                    <div [style.width.%]="progress" class="bg-gray-800 h-full rounded-full"></div>
+                    <div [style.width.%]="course.progress" class="bg-gray-800 dark:bg-blue-600 h-full rounded-full"></div>
                 </div>
-                <span class="ml-2 text-sm text-center">{{ progress }}% Completed</span>
+                <span class="ml-2 text-sm text-center">{{ course.progress }}% Completed</span>
             </div>
             <button class="card-btn" [routerLink]="['/courses', course?.id, 'study']">Continue Learning</button>
         </div>

@@ -28,7 +28,7 @@ export class InMemoryDataService implements InMemoryDbService {
         image: '/assets/JS.png',
         instructor: {
           id: 2,
-          fullname: 'John Doe',
+          fullName: 'John Doe',
           password: 'hashedpassword',
           bio: 'Passionate about web development',
           image: '../../assets/pic.jpg',
@@ -97,9 +97,9 @@ export class InMemoryDataService implements InMemoryDbService {
             title: 'Angular Discussion',
             content: 'Let\'s discuss Angular topics here!',
             date: new Date(),
-            author: {
+            user: {
               id: 2,
-              fullname: 'John Doe',
+              fullName: 'John Doe',
               password: 'hashedpassword',
               bio: 'Passionate about web development',
               image: '../../assets/pic.jpg',
@@ -119,9 +119,9 @@ export class InMemoryDataService implements InMemoryDbService {
                 id: 1,
                 content: 'Great course! I learned a lot.',
                 date: new Date(),
-                author: {
+                user: {
                   id: 1,
-                  fullname: 'Instructor Name',
+                  fullName: 'Instructor Name',
                   password: '123',
                   bio: 'Experienced instructor in web development',
                   image: '../assets/pic.jpg',
@@ -165,7 +165,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const users: User[] = [
       {
         id: 1,
-        fullname: 'Instructor Name',
+        fullName: 'Instructor Name',
         password: '123',
         bio: 'Experienced instructor in web development',
         image: '../assets/pic.jpg',
@@ -180,7 +180,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         id: 2,
-        fullname: 'John Doe',
+        fullName: 'John Doe',
         password: '123',
         bio: 'Passionate about web development',
         image: '../assets/pic.jpg',

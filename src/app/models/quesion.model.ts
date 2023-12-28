@@ -1,8 +1,11 @@
 export interface Question {
     id: number;
     question: string;
-    answers: string[];
-    correct_answer: number;
-    quiz_id: number;
+    answer1: string;
+    answer2: string;
+    answer3: string;
+    answer4: string;
+    correctAnswer: number;
+    quiz: any;
   }
   

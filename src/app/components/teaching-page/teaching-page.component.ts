@@ -16,12 +16,21 @@ export class TeachingPageComponent implements OnInit {
 
   course: Course | null = null
   ngOnInit(): void {
-    this.route.params.subscribe(
-      params => {
-        const id = +params['id']
-        this.courseServ.getCourseById(id).subscribe(
-          course => this.course = course
+    this.router.events.subscribe(
+      () => {
+        this.route.params.subscribe(
+          params => {
+            const id = +params['id']
+            this.courseServ.getCourseById(id).subscribe(
+              {
+                next: res => this.course = res.data,
+                error: err => console.error("Error getting course by id: ", err)
+
+              }
+            )
+          }
         )
+
       }
     )
   }
@@ -51,15 +60,18 @@ export class TeachingPageComponent implements OnInit {
     if (this.course) {
       const newModule: Module = {
         id: 0,
-        course_id: this.course.id,
+        course: {id: this.course.id},
         lessons: [],
         title: title,
         description: description,
         quiz: null
       }
 
+      console.log(newModule);
+      
+
       this.moduleServ.addModule(newModule).subscribe(
-        module => this.router.navigate(['courses/teaching',this.course?.id, 'addModule', module.id])
+        response => this.router.navigate(['courses/teaching', this.course?.id, 'addModule', response.data.id])
       )
       this.closeAddModuleForm();
       form.resetForm()

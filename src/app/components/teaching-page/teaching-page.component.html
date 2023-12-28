@@ -27,7 +27,7 @@
                         {{course.posts.length}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{course.courseModules.length}}
+                        {{course.modules.length}}
                     </th>
                 </tr>
             </tbody>
@@ -36,11 +36,12 @@
     <div class="mb-10">
         <h2 class="text-3xl font-bold mb-4">Modules</h2>
         <ul class="list-disc pl-6">
-            <li *ngFor="let module of course.courseModules; let moduleId = index" class="mb-2 ml-5 text-lg">
-                <div (click)="toggleLessons(moduleId)" class="underline cursor-pointer">
-                    {{module.title}}
+            <li *ngFor="let module of course.modules; let i = index" class="mb-2 ml-5 text-lg">
+                <div (click)="toggleLessons(i)" class="cursor-pointer flex justify-between">
+                    <span class="underline">{{module.title}}</span>
+                    <button [routerLink]="['addModule', module.id]" class="btn-primary bg-green-500 text-white text-xs">Add Lessons/Quiz To This Module</button>
                 </div>
-                <ul *ngIf="showLessons[moduleId]" class="list-disc pl-8">
+                <ul *ngIf="showLessons[i]" class="list-disc pl-8">
                     <li *ngFor="let lesson of module.lessons">
                         {{lesson.title}}
                     </li>

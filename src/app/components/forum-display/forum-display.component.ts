@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ForumsComponent } from '../forums/forums.component';
 import { FORUMS, USER } from '../../../static_data';
 import { Post } from '../../models/post.model';
 import { CourseService } from '../../services/course.service';
 import { ReplyService } from '../../services/reply.service';
-import { Reply } from '../../models/reply.model';
 import { AuthService } from '../../services/auth.service';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-forum-display',
@@ -22,14 +21,25 @@ export class ForumDisplayComponent {
     private authServ: AuthService
   ) { }
 
-  forums = FORUMS;
   discussion: Post | undefined;
 
 
   ngOnInit() {
+    this.loadDB()
+  }
+
+
+  loadDB() {
     this.route.params.subscribe(params => {
       this.courseServ.getCourseById(+params['id']).subscribe(
-        course => this.discussion = course.posts.find(post => post.id === +params['postId'])
+        {
+          next: response => {
+            const course = response.data as Course;
+            this.discussion = course.posts.find(post => post.id === +params['postId'])
+          },
+          error: err => console.error(err)
+          
+        }
       )
     });
   }
@@ -39,15 +49,15 @@ export class ForumDisplayComponent {
   addComment() {
     this.isEmptyComment = this.newComment === '';
     if (!this.isEmptyComment) {
-      const newReply: Reply = {
-        id: -1,
+      const newReply = {
         content: this.newComment,
-        date: new Date(),
-        author: this.authServ.getUserData(),
-        post_id: this.discussion?.id,
+        user: {email: this.authServ.getUserData()?.email},
       }
-      this.replyServ.addReply(newReply)
-      this.discussion?.replies.push(newReply)
+      console.log(newReply);
+      
+      this.replyServ.addReply(newReply, this.discussion?.id).subscribe(
+        () => {this.loadDB(); this.authServ.refetch()}
+      )
     }
     this.newComment = ''; // Clear the comment content after submission
   }

@@ -19,7 +19,6 @@ export class CourseDisplayComponent implements OnInit {
   displayModuleDetails: boolean = false;
   course: Course | undefined;
   courses: Course[] | undefined;
-  user: User | undefined;
 
   toggle() {
     this.displayModuleDetails = !this.displayModuleDetails;
@@ -34,10 +33,9 @@ export class CourseDisplayComponent implements OnInit {
 
   ngOnInit() {
 
-    this.user = this.authServ.getUserData() || undefined
     this.courseServ.getCourses().subscribe(
       courses => {
-        this.courses = courses
+        this.courses = courses.data
         this.route.params.subscribe(params => {
           const courseId = +params['id']; // Convert the string to a number
           this.course = this.courses?.find(course => course.id === courseId);
@@ -48,17 +46,21 @@ export class CourseDisplayComponent implements OnInit {
 
 
   enroll() {
-    const enrollment: Enrollment = {
-      user_id: this.user?.id,
-      course_id: this.course?.id,
-      date: new Date()
+
+    const user = {
+      id: this.authServ.getUserData()?.id
     }
-    if (this.course)
-      this.user?.enrolledCourses.push(this.course);
-    this.enrollServ.addEnrollment(enrollment);
-    this.router.navigate(['/courses', this.course?.id, 'study'])
-    alert(
-      this.authServ.isAuthenticated() ? `Enrolled at ${this.course?.title} succsessfully.` : 'You are not logged in'
-    )
+
+    this.enrollServ.addEnrollment(user, this.course?.id).subscribe({
+      next: () => {
+        this.router.navigate(['/courses', this.course?.id, 'study'])
+        alert(
+          this.authServ.isAuthenticated() ? `Enrolled at ${this.course?.title} succsessfully.` : 'You are not logged in'
+        )
+        this.authServ.refetch()
+      },
+      error: err => console.error("Error enrolling ", err)
+
+    })
   }
 }

@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { Course } from '../models/course.model';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-  private apiUrl = 'api/courses';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  getCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(this.apiUrl);
+  getCourses() {
+    return this.http.get<any>(`${this.apiUrl}/course`);
   }
 
-  getCourseById(courseId: number): Observable<Course> {
-    return this.http.get<Course>(`${this.apiUrl}/${courseId}`)
+  getCourseById(courseId: number) {
+    return this.http.get<any>(`${this.apiUrl}/course/${courseId}`)
   }
 
-  addCourse(course: Course): Observable<Course> {
-    return this.http.post<Course>(`${this.apiUrl}/add`, course);
+  addCourse(course: Course) {
+    return this.http.post<any>(`${this.apiUrl}/course`, course);
   }
 
   updateCourse(course: Course): Observable<Course> {
@@ -31,6 +32,13 @@ export class CourseService {
     return this.http.delete<void>(`${this.apiUrl}/delete/${courseId}`);
   }
 
+  getAllTags() {
+    return this.http.get<any>(`${this.apiUrl}/course/tags`)
+  }
+
+  getCoursesByTag(tagId: number) {
+    return this.http.get<any>(`${this.apiUrl}/course/tag/${tagId}`)
+  }
 
 
 }

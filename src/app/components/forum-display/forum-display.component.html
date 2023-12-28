@@ -4,9 +4,11 @@
   <!-- Post Section -->
   <div>
     <div class="flex items-center mb-4">
-      <img class="w-16 h-16 rounded-full mr-4" [src]="discussion.author?.image" alt="Author Avatar">
+      <img class="w-16 h-16 rounded-full mr-4" [src]="discussion.user?.image" alt="Author Avatar">
       <div class="">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">{{discussion.author?.fullname}}</h2>
+        <a [routerLink]="['/profile']" [queryParams]="{'id': discussion.user?.id}" class="hover:underline">
+          <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">{{discussion.user?.fullName}}</h2>
+        </a>
         <p class="text-gray-500">{{discussion.date | date:'medium'}}</p>
       </div>
     </div>
@@ -21,9 +23,11 @@
     <!-- Replies Section -->
     <div *ngFor="let reply of discussion?.replies">
       <div class="flex items-center mb-4">
-        <img class="w-12 h-12 rounded-full mr-4" [src]="reply.author?.image" alt="Reply Author Avatar">
+        <img class="w-12 h-12 rounded-full mr-4" [src]="reply.user?.image" alt="Reply Author Avatar">
         <div>
-          <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{reply.author?.fullname}}</h2>
+          <a [routerLink]="['/profile']" [queryParams]="{'id': reply.user?.id}" class="hover:underline">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{reply.user?.fullName}}</h2>
+          </a>
           <p class="text-gray-500">{{reply.date | date:'medium'}}</p>
         </div>
       </div>
@@ -33,7 +37,8 @@
     </div>
 
     <!-- Comment Section -->
-    <app-alert *ngIf="isEmptyComment" [title]="'Empty Comment'" [body]="'Cannot submit an empty comment.'" [type]="'danger'"></app-alert>
+    <app-alert *ngIf="isEmptyComment" [title]="'Empty Comment'" [body]="'Cannot submit an empty comment.'"
+      [type]="'danger'"></app-alert>
     <div class="bg-white p-6 dark:bg-gray-800 rounded-md shadow-md mt-10">
       <h2 class="text-2xl font-semibold mb-4">Add a Comment</h2>
       <form (ngSubmit)="addComment()" #commentForm="ngForm">

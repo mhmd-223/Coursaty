@@ -14,10 +14,9 @@ export class CoursesPageComponent implements OnInit {
   courses: Course[] = [];
 
   // Tags for filtering
-  tags = new Set<string>();
+  tags: { id: number, title: string, checked: boolean }[] = [];
 
-  // Selected tags for filtering
-  selectedTags: { [key: string]: boolean } = {};
+  selectedTags: Set<number> = new Set()
 
   // Filtered courses based on query parameter
   filteredCourses: Course[] = [];
@@ -25,52 +24,67 @@ export class CoursesPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private courseServ: CourseService) { }
 
   ngOnInit() {
+    this.fetchCourses();
+
+    this.courseServ.getAllTags().subscribe(
+      response => {
+        this.tags = response.data.map((tag: any) => ({ id: tag.id, title: tag.title }));
+      }
+    );
+
+    this.filterByTags();
+  }
+
+
+  filterByQuery(query: string) {
+    if (!query) return
+    
+    query = query.toLowerCase().trim()
+
+    this.filteredCourses = this.courses.filter(
+      course => course.tags.map(t => t.toLowerCase()).includes(query) || course.title.toLowerCase().includes(query)
+    )
+  }
+
+  private filterByTags() {
+    if (this.selectedTags.size == 0)
+      this.filteredCourses = this.courses
+
+    this.selectedTags.forEach(tag => {
+      this.courseServ.getCoursesByTag(tag).subscribe(
+        response => {
+          this.filteredCourses = response.data;
+        }
+      );
+    });
+  }
+
+  private fetchCourses() {
     this.courseServ.getCourses().subscribe(
-      courses => {
-        this.courses = courses;
-        // tags
-        this.courses.forEach((course) => {
-          course.tags.forEach((tag: string) => {
-            this.tags.add(tag);
-          });
-        });
+      response => {
+
+        console.log(response.data);
         
-        // Get the query parameter from the URL
-        this.route.queryParams.subscribe((params) => {
-          const query = params['query'];
-  
-          if (query) {
-            // Filter courses based on the query
-            this.filteredCourses = this.filterCoursesByQuery(query);
-          } else {
-            // If no query, show all courses
-            this.filteredCourses = this.courses;
+        response.data.forEach((c: any) => c.tags = c.tags.map((t: any) => t.tag.title))
+        this.courses = response.data;
+        this.filteredCourses = this.courses;
+
+        this.route.queryParams.subscribe(
+          params => {
+            const query = params['query'] as string;
+            this.filterByQuery(query);
           }
-        });
+        )
       }
     );
   }
 
-  // Function to filter courses based on the query
-  filterCoursesByQuery(query: string): Course[] {
-    return this.courses.filter(
-      (course) =>
-        course.title.toLowerCase().includes(query.toLowerCase()) ||
-        course.tags.some((tag) => tag.toLowerCase().includes(query.toLowerCase()))
-    );
-  }
+  selectTag(tagId: number, isChecked: boolean) {
+    if (isChecked)
+      this.selectedTags.add(tagId);
+    else
+      this.selectedTags.delete(tagId);
 
-  // Function to filter courses based on the selected tags
-  filterCoursesByTags(tags: { [key: string]: boolean }): Course[] {
-    const selectedTags = Object.values(tags).some((value) => value);
-
-    if (!selectedTags) {
-      // If no tags are selected, return all courses
-      return this.courses;
-    }
-
-    return this.courses.filter((course) =>
-      Object.keys(tags).some((tag) => tags[tag] && course.tags.includes(tag))
-    );
+    this.filterByTags()
   }
 }

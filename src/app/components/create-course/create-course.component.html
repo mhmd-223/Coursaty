@@ -9,7 +9,7 @@
 
         <div class="mb-4">
             <label for="brief" class="block text-lg font-medium">Brief</label>
-            <textarea id="brief" name="brief" ngModle class="mt-1 p-2 w-full border rounded-md" required></textarea>
+            <textarea id="brief" name="brief" ngModel class="mt-1 p-2 w-full border rounded-md" required></textarea>
         </div>
 
         <div class="mb-4">
@@ -18,9 +18,18 @@
                 required></textarea>
         </div>
 
+        <!-- create-course.component.html -->
+
         <div class="mb-4">
-            <label for="tags" class="block text-lg font-medium">Tags (each on a new line)</label>
-            <textarea id="tags" name="tags" ngModel class="mt-1 p-2 w-full border rounded-md" required></textarea>
+            <label for="tags" class="block text-lg font-medium">Tags</label>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
+                <!-- Use *ngFor to create checkboxes for each predefined tag -->
+                <label *ngFor="let tag of tags" class="inline-flex items-center" style="margin-right: 10px;">
+                    <input type="checkbox" [value]="tag" [checked]="selectedTags.includes(tag)"
+                        (change)="toggleTag(tag)">
+                    <span class="ml-2">{{ tag.title }}</span>
+                </label>
+            </div>
         </div>
 
         <div class="mb-4">

@@ -34,7 +34,7 @@
     <!-- Welcome Section -->
     <section class="bg-darkSlateBlue dark:bg-cpd-2 py-20 text-gray-200">
         <div class="container mx-auto text-center">
-            <h1 class="text-5xl font-extrabold mb-4">Welcome, {{user?.fullname}}!</h1>
+            <h1 class="text-5xl font-extrabold mb-4">Welcome, {{user?.fullName}}!</h1>
             <p class="text-lg p-5">
                 {{ !isStudent() ? 'Continue to inspire and shape minds through your expertise.' : 'Continue your learning journey and explore the latest courses.' }}
               </p>              
@@ -49,9 +49,8 @@
             </h2>
             <button *ngIf="!isStudent()" routerLink="courses/create" class="hover:opacity-[70%] text-lg mr-2">Create New Course</button>
         </div>
-        <!-- Add a grid or carousel showcasing featured courses -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" *ngIf="isStudent()">
-            <app-enrolled-course *ngFor="let course of user?.enrolledCourses" [course]="course"></app-enrolled-course>
+            <app-enrolled-course *ngFor="let enrollment of user?.enrollments" [course]="enrollment.course"></app-enrolled-course>
         </div>
 
         
@@ -71,7 +70,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let course of user.enrolledCourses" class="bg-white text-center border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr *ngFor="let course of user.courses" class="bg-white text-center border-b dark:bg-gray-800 dark:border-gray-700">
                   <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <a [routerLink]="['courses/teaching', course.id]" class="underline">{{ course.title }}</a>
                   </td>

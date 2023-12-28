@@ -31,14 +31,7 @@ export class ForumsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      params => {
-        this.courseId = +params['id']
-        this.courseServ.getCourseById(this.courseId).subscribe(
-          course => { this.forums = course.posts; this.courseTitle = course.title; }
-        )
-      }
-    )
+    this.loadPosts()
   }
 
   sortedAscByReplies = true;
@@ -83,19 +76,33 @@ export class ForumsComponent implements OnInit {
       return
     }
 
-    const newPost: Post = {
-      id: -1,
-      title: postTitle,
-      content: postContent,
-      date: new Date(),
-      author: this.authServ.getUserData(),
-      course_id: this.courseId,
-      replies: []
+    const newPost = {
+        title: postTitle,
+        content: postContent,
+        user: {
+          email: this.authServ.getUserData()?.email
+        },
+      courseId: this.courseId
     }
 
-    this.postServ.addPost(newPost)
+    console.log(newPost);
+
+    this.postServ.addPost(newPost).subscribe(
+      res => { console.log(res); this.loadPosts(); this.authServ.refetch() }
+    )
     this.showForm = false
   }
 
+  loadPosts() {
+    this.route.params.subscribe(
+      params => {
+        this.courseId = +params['id']
+        this.courseServ.getCourseById(this.courseId).subscribe(
+          res => { this.forums = res.data.posts; this.courseTitle = res.data.title;
+           }
+        )
+      }
+    )
+  }
 
 }

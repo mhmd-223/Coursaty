@@ -6,7 +6,7 @@ export interface Post {
     title: string;
     content: string;
     date: Date;
-    author: User | null;
+    user: User | null;
     course_id: number;
     replies: Reply[]
   }

@@ -9,13 +9,16 @@
     <div class="my-8">
         <div class="flex justify-between">
             <div class="mb-8">
-                <h1 class="text-3xl font-semibold mb-8">Module {{moduleNumber}}: {{course.courseModules[moduleNumber -
+                <h1 class="text-3xl font-semibold mb-8">Module {{moduleNumber}}: {{course.modules[moduleNumber -
                     1].title}}</h1>
                 <h2 class="text-xl font-semibold mb-4">Lesson {{lessonNumber}}: {{lesson.title}}</h2>
             </div>
             <div>
-                <button (click)="toggleLessonStatus()" class="mr-2" [class.finished]="lesson.isFinished">
-                    {{ lesson.isFinished ? 'Mark as Unfinished' : 'Mark as Finished' }}
+                <button (click)="toggleLessonStatus()" class="mr-2" *ngIf="isFinished">
+                    Mark as Unfinished
+                </button>
+                <button (click)="toggleLessonStatus()" class="mr-2" *ngIf="!isFinished">
+                    Mark as Finished
                 </button>
             </div>
         </div>
@@ -29,7 +32,7 @@
 
 
     <!-- Quiz Section -->
-    <div *ngIf="lessonNumber == course.courseModules[moduleNumber - 1].lessons.length" class="mt-8">
+    <div *ngIf="lessonNumber == course.modules[moduleNumber - 1].lessons.length" class="mt-8">
         <h2 class="text-2xl font-bold mb-4">Quiz</h2>
         <div class="flex justify-between items-center">
             <span class="flex-grow">

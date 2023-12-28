@@ -7,12 +7,13 @@ export interface Course {
     title: string;
     brief: string;
     description: string;
-    preview_url: string;
+    previewUrl: string;
     image: string;
     instructor: User | null;
-    tags: string[];
-    courseModules: Module[];
+    courseTags: number[];
+    modules: Module[];
     posts: Post[];
-    subscribers: number
+    subscribers: number;
+    tags: string[]
   }
   

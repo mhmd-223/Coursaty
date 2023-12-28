@@ -4,7 +4,6 @@ export interface Reply {
     id: number;
     content: string;
     date: Date;
-    author: User | null;
-    post_id: number | undefined;
+    user: User | null;
   }
   

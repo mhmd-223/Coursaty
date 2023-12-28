@@ -2,7 +2,7 @@
     <div class="flex items-center space-x-4">
         <img [src]="user.image" alt="User Avatar" class="w-36 h-36 mr-8 rounded-full ring-2 ring-darkSlateBlue">
         <div>
-            <h2 class="text-3xl font-bold my-2">{{ user.fullname }}</h2>
+            <h2 class="text-3xl font-bold my-2">{{ user.fullName }}</h2>
             <p class="text-sm text-gray-500">{{ user.email }}</p>
             <p class="text-sm text-gray-500">{{ user.role }}</p>
         </div>
@@ -27,10 +27,7 @@
                     class="text-sm text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Courses <span> {{ user.role.toString() === 'Student' ? 'Enrolled' : 'Created'}}</span>
-                        </th>
-                        <th *ngIf="user.role.toString() === 'Student'" scope="col" class="px-6 py-3">
-                            Courses Completed
+                            Courses <span> {{ user.role === 'Student' ? 'Enrolled' : 'Created'}}</span>
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Replies Made
@@ -43,16 +40,13 @@
                 <tbody>
                     <tr class="bg-white text-center border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{user.enrolledCourses.length}}
-                        </th>
-                        <th *ngIf="user.role.toString() === 'Student'" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{user.stats.coursesCompleted}}
+                            {{user.role === 'Student' ?  user.enrollments.length : user.courses.length}}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{user.stats.repliesMade}}
+                            {{user.replies.length}}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{user.stats.postsMade}}
+                            {{user.posts.length}}
                         </th>
                     </tr>
                 </tbody>
