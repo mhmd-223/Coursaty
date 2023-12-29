@@ -49,11 +49,17 @@
             </h2>
             <button *ngIf="!isStudent()" routerLink="courses/create" class="hover:opacity-[70%] text-lg mr-2">Create New Course</button>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" *ngIf="isStudent()">
-            <app-enrolled-course *ngFor="let enrollment of user?.enrollments" [course]="enrollment.course"></app-enrolled-course>
+        <div *ngIf="user?.enrollments?.length === 0 && isStudent()" class="text-center">
+          <p class="text-xl font-semibold mb-4 italic text-gray-400">You haven't enrolled in any courses</p>
         </div>
-
-        
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" *ngIf="isStudent()">
+        <app-enrolled-course *ngFor="let enrollment of user?.enrollments" [course]="enrollment.course"></app-enrolled-course>
+      </div>
+      
+      
+      <div *ngIf="user?.courses?.length === 0 && !isStudent()" class="text-center">
+        <p class="text-xl font-semibold mb-4 italic text-gray-400">You haven't created any courses</p>
+      </div>
         <div class="relative overflow-x-auto" *ngIf="!isStudent() && user">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead class="text-sm text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -78,7 +84,9 @@
                     {{ course.subscribers }}
                   </td>
                   <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ course.posts.length }}
+                    <a [routerLink]="['/courses', course.id, 'posts']">
+                      {{ course.posts.length }}
+                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -89,16 +97,20 @@
 
     <!-- Recommended Courses Section -->
     <section *ngIf="isStudent()" class="container mx-auto mt-12">
-        <h2 class="text-3xl font-bold m-6">Recommended for you</h2>
-        <!-- Add a grid or carousel showcasing featured courses -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <app-card *ngFor="let course of recommendedCourses" [course]="course"></app-card>
-        </div>
+      <h2 class="text-3xl font-bold m-6">Recommended for you</h2>
+      <div *ngIf="recommendedCourses.length === 0" class="text-center">
+          <p class="text-xl font-semibold mb-4 italic text-gray-400">Explore and enroll in some courses to discover personalized recommendations!</p>
+      </div>
+      <!-- Add a grid or carousel showcasing featured courses -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <app-card *ngFor="let course of recommendedCourses" [course]="course"></app-card>
+      </div>
     </section>
+
 
     <!-- Featured Courses Section -->
     <section *ngIf="isStudent()"  class="container mx-auto mt-12">
-        <h2 class="text-3xl font-bold m-6">Featured Courses</h2>
+        <h2 class="text-3xl font-bold m-6">Top Courses</h2>
         <!-- Add a grid or carousel showcasing featured courses -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <app-card *ngFor="let course of topCourses" [course]="course"></app-card>

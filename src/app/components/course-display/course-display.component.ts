@@ -47,6 +47,27 @@ export class CourseDisplayComponent implements OnInit {
 
   enroll() {
 
+    if (!this.authServ.isAuthenticated()) {
+      alert('Please login or create an account.');
+      this.router.navigate(['/login']);
+      return
+    }
+    if (this.authServ.getUserData()?.role === 'Instructor') {
+      alert('You must have a student account to enroll.');
+      return
+    }
+    const usr = this.authServ.getUserData()
+    if (usr) {
+      const length = usr.enrollments.length
+      if (length) {
+        for (let i = 0; i < length; i++) {
+          if (usr.enrollments[i].course.id === this.course?.id) {
+            alert("You are already enrolled in this course")
+            return
+          }
+        }
+      }
+    }
     const user = {
       id: this.authServ.getUserData()?.id
     }

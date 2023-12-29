@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FORUMS, USER } from '../../../static_data';
 import { Post } from '../../models/post.model';
 import { CourseService } from '../../services/course.service';
 import { ReplyService } from '../../services/reply.service';
