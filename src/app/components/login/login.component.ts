@@ -17,6 +17,13 @@ import { UserService } from '../../services/user.service';
 export class LoginComponent {
 
   isForgetPassOpen: boolean = false;
+
+  isOtpOpen: boolean = false;
+
+  isUpdatePassOpen: boolean = false;
+
+  email: string = "";
+  
   constructor(
     private authService: AuthService,
     private navigatorService: NavigatorService,
@@ -48,12 +55,54 @@ export class LoginComponent {
 
   forgetPass(form: NgForm) {
     const {email} = form.value
-  
-    alert("A message sent to " + email)
-    this.userServ.recoverAcc(email).subscribe(
-      () => alert("Your password changed successfully.\nTry to log in again.")
+    this.userServ.generateOtp(email).subscribe(
+      (response) => {
+        if(response.message === "Success"){
+          this.isForgetPassOpen = false
+          this.email = email
+          this.isOtpOpen = true
+          alert("OTP sent to " + email)
+        }else {
+          alert("This email doesn't exist")
+        }
+      }
     )
-
     this.isForgetPassOpen = false
   }
+
+  validateOtp(form: NgForm) {
+    const {otp} = form.value
+    const user = {email: this.email, otp: otp}
+    this.userServ.checkOtp(user).subscribe(
+      (response) => {
+        if(response.message === "Success"){
+          this.isOtpOpen = false
+          this.isUpdatePassOpen = true
+        }else{
+          alert("OTP doesn't match")
+        }
+    }
+    )
+    this.isOtpOpen = false
+  }
+
+  updatePassword(form: NgForm) {
+    const {password, confirmedPassword} = form.value
+    if(password !== confirmedPassword){ 
+      alert("Password and confirmed password don't match")
+      form.resetForm()
+      return
+    }
+    const user = {email: this.email, password: password}
+    this.userServ.changePassword(user).subscribe(
+      (response) => {
+        if(response.message === "Success"){
+          alert("Password Changed Successfully!")
+          this.isOtpOpen = false
+          this.isUpdatePassOpen = false
+        }
+    }
+    )
+    this.isUpdatePassOpen = false
+}
 }

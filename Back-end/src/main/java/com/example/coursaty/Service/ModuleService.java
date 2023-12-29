@@ -1,13 +1,11 @@
 package com.example.coursaty.Service;
 
-import com.example.coursaty.Entitiy.Lesson;
 import com.example.coursaty.Entitiy.Module;
 import com.example.coursaty.Entitiy.Response.CustomResponseCode;
 import com.example.coursaty.Entitiy.Response.CustomResponseEntity;
 import com.example.coursaty.Repository.ModuleRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

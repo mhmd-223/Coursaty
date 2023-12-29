@@ -1,6 +1,5 @@
 package com.example.coursaty;
 
-import com.example.coursaty.Service.PasswordService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
