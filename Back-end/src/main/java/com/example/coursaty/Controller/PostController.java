@@ -2,7 +2,6 @@ package com.example.coursaty.Controller;
 
 import com.example.coursaty.Entitiy.Post;
 import com.example.coursaty.Entitiy.Response.CustomResponseEntity;
-import com.example.coursaty.Entitiy.User.User;
 import com.example.coursaty.Service.PostService;
 import org.springframework.web.bind.annotation.*;
 

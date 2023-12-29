@@ -3,7 +3,6 @@ package com.example.coursaty.Service;
 import com.example.coursaty.Entitiy.Lesson;
 import com.example.coursaty.Entitiy.Response.CustomResponseCode;
 import com.example.coursaty.Entitiy.Response.CustomResponseEntity;
-import com.example.coursaty.Entitiy.UserLesson;
 import com.example.coursaty.Repository.LessonRepository;
 import com.example.coursaty.Repository.UserLessonRepository;
 import org.springframework.stereotype.Service;

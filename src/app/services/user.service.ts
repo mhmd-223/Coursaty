@@ -27,7 +27,19 @@ export class UserService {
     return this.http.get<any>(`${this.apiUrl}/user/recover/${email}`)
   }
 
-  updateInfo(usr: any) {
-    return this.http.put<any>(`${this.apiUrl}/user/update`, usr)
+  updateInfo(user: any) {
+    return this.http.put<any>(`${this.apiUrl}/user/update`, user)
+  }
+
+  generateOtp(email: string){
+    return this.http.get<any>(`${this.apiUrl}/user/otp/${email}`)
+  }
+
+  checkOtp(user: any){
+    return this.http.post<any>(`${this.apiUrl}/user/otp/validate`, user)
+  }
+
+  changePassword(user: any){
+    return this.http.put<any>(`${this.apiUrl}/user/password`, user)
   }
 }

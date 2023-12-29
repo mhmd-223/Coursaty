@@ -7,14 +7,16 @@ import com.example.coursaty.Entitiy.Response.CustomResponseCode;
 import com.example.coursaty.Entitiy.Response.CustomResponseEntity;
 import com.example.coursaty.Entitiy.User.User;
 import com.example.coursaty.Entitiy.UserLesson;
+import com.example.coursaty.Mail.MailEvent;
 import com.example.coursaty.Repository.CourseRepository;
 import com.example.coursaty.Repository.LessonRepository;
 import com.example.coursaty.Repository.UserLessonRepository;
 import com.example.coursaty.Repository.UserRepository;
-import org.springframework.http.ResponseEntity;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -23,16 +25,18 @@ public class UserService {
     private final CourseRepository courseRepository;
     private final LessonRepository lessonRepository;
     private final UserLessonRepository userLessonRepository;
+    private final ApplicationEventPublisher eventPublisher;
     private PasswordService passwordService = new PasswordService();
 
-    public UserService(UserRepository userRepository, CourseRepository courseRepository, LessonRepository lessonRepository, UserLessonRepository userLessonRepository) {
-        this.userRepository = userRepository;
-        this.courseRepository = courseRepository;
-        this.lessonRepository = lessonRepository;
-        this.userLessonRepository = userLessonRepository;
-    }
+  public UserService(UserRepository userRepository, CourseRepository courseRepository, LessonRepository lessonRepository, UserLessonRepository userLessonRepository, ApplicationEventPublisher eventPublisher) {
+    this.userRepository = userRepository;
+    this.courseRepository = courseRepository;
+    this.lessonRepository = lessonRepository;
+    this.userLessonRepository = userLessonRepository;
+    this.eventPublisher = eventPublisher;
+  }
 
-    public CustomResponseEntity<?> authenticateUser(User user) {
+  public CustomResponseEntity<?> authenticateUser(User user) {
         Optional<User> user1 = userRepository.findByEmail(user.getEmail());
         if (user1.isPresent()) {
             if (passwordService.authenticatePassword(user.getPassword(), user1.get().getPassword())) {
@@ -79,15 +83,17 @@ public class UserService {
         return new CustomResponseEntity<>(CustomResponseCode.SUCCESS, this.userRepository.findById(userId).orElse(null));
     }
 
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow();
-    }
-
-    public void updatePassword(User user, String pass) {
-        if (pass != null) {
-            user.setPassword(passwordService.encodePassword(pass));
-            userRepository.save(user);
+    public CustomResponseEntity<?> updatePassword(User user) {
+        Optional<User> user1 = userRepository.findByEmail(user.getEmail());
+        if(user1.isPresent()) {
+          if (user.getPassword() != null) {
+            user1.get().setPassword(passwordService.encodePassword(user.getPassword()));
+            userRepository.save(user1.get());
+            return new CustomResponseEntity<>(CustomResponseCode.SUCCESS);
+          }
+          return new CustomResponseEntity<>(CustomResponseCode.FAIL);
         }
+        return new CustomResponseEntity<>(CustomResponseCode.FAIL);
     }
 
     public void updateUser(User user) {
@@ -104,4 +110,33 @@ public class UserService {
             userRepository.save(existingUser);
         }
     }
+
+  public CustomResponseEntity<?> generateOtp(String email){
+    Optional<User> user = userRepository.findByEmail(email);
+    if(user.isPresent()){
+      int random = new Random().nextInt(9000) + 1000;         //generate OTP
+      String otp = Integer.toString(random);
+      user.get().setOtp(otp);
+      MailEvent event = new MailEvent(this, user.get().getEmail(), otp, "OTP CODE");
+      eventPublisher.publishEvent(event);                           //send OTP
+      userRepository.save(user.get());
+      return new CustomResponseEntity<>(CustomResponseCode.SUCCESS);
+    }
+    return new CustomResponseEntity<>(CustomResponseCode.FAIL);
+  }
+
+  public CustomResponseEntity<?> checkOtp(String otp, String email){
+    Optional<User> user = userRepository.findByEmail(email);
+    if(user.isPresent()){
+      if(user.get().getOtp().equals(otp)){
+        user.get().setOtp(null);
+        userRepository.save(user.get());
+        return new CustomResponseEntity<>(CustomResponseCode.SUCCESS);
+      }
+      user.get().setOtp(null);
+      userRepository.save(user.get());
+      return new CustomResponseEntity<>(CustomResponseCode.FAIL);
+    }
+    return new CustomResponseEntity<>(CustomResponseCode.FAIL);
+  }
 }

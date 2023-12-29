@@ -1,8 +1,6 @@
 package com.example.coursaty.Entitiy;
 
 import com.example.coursaty.Entitiy.User.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 

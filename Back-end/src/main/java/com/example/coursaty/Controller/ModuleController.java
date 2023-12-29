@@ -1,8 +1,10 @@
 package com.example.coursaty.Controller;
 
-import com.example.coursaty.Entitiy.*;
 import com.example.coursaty.Entitiy.Module;
+import com.example.coursaty.Entitiy.Question;
+import com.example.coursaty.Entitiy.Quiz;
 import com.example.coursaty.Entitiy.Response.CustomResponseEntity;
+import com.example.coursaty.Entitiy.UserQuiz;
 import com.example.coursaty.Service.ModuleService;
 import com.example.coursaty.Service.QuestionService;
 import com.example.coursaty.Service.QuizService;

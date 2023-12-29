@@ -1,7 +1,6 @@
 package com.example.coursaty.Entitiy.User;
 
 import com.example.coursaty.Entitiy.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -20,6 +19,7 @@ public class User {
     private String bio;
     private String image;
     private String email;
+    private String otp;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum")
@@ -49,20 +49,24 @@ public class User {
     public User() {
     }
 
-    public User(long id, String fullName, String password, String bio, String image, String email, Role role, List<Course> courses, List<Enrollment> enrollments, List<Post> posts) {
-        this.id = id;
-        this.fullName = fullName;
-        this.password = password;
-        this.bio = bio;
-        this.image = image;
-        this.email = email;
-        this.role = role;
-        this.courses = courses;
-        this.enrollments = enrollments;
-        this.posts = posts;
-    }
+  public User(long id, String fullName, String password, String bio, String image, String email, String otp, Role role, List<Course> courses, List<Enrollment> enrollments, List<Post> posts, List<UserLesson> userLesson, List<Reply> replies, List<UserQuiz> userQuizzes) {
+    this.id = id;
+    this.fullName = fullName;
+    this.password = password;
+    this.bio = bio;
+    this.image = image;
+    this.email = email;
+    this.otp = otp;
+    this.role = role;
+    this.courses = courses;
+    this.enrollments = enrollments;
+    this.posts = posts;
+    this.userLesson = userLesson;
+    this.replies = replies;
+    this.userQuizzes = userQuizzes;
+  }
 
-    public long getId() {
+  public long getId() {
         return id;
     }
 
@@ -166,7 +170,15 @@ public class User {
         this.userQuizzes = userQuizzes;
     }
 
-    @Override
+  public String getOtp() {
+    return otp;
+  }
+
+  public void setOtp(String otp) {
+    this.otp = otp;
+  }
+
+  @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
